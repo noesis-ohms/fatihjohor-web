@@ -1,0 +1,13 @@
+:root{--corp-blue:#0000ff;--corp-red:#ff0000;--corp-cyan:#00c9ff;--corp-navy:#04165f;--corp-ink:#071d52;--corp-muted:#62728d;--corp-line:#dbe7f5;--corp-soft:#f6faff;--wa:#139447;--wa-hover:#0d7d3a}
+html{scroll-behavior:smooth;scroll-padding-top:92px}
+body{background:#fff;color:var(--corp-ink)}
+.p8-header{background:rgba(255,255,255,.96);border-bottom:1px solid rgba(0,0,255,.08);box-shadow:0 8px 28px rgba(4,22,95,.045)}
+.p8-brand strong{color:#0000e8}.p8-brand small{color:#6a7891}
+.p8-nav-links>a,.p8-nav-group-toggle{color:#071d52}.p8-nav-links>a.active,.p8-nav-group.active>.p8-nav-group-toggle{color:var(--corp-blue);background:#eef4ff}
+.p8-nav-links>a.active::after,.p8-nav-group.active>.p8-nav-group-toggle::after{background:linear-gradient(90deg,var(--corp-blue),var(--corp-cyan))}
+.p8-nav-menu{border:1px solid rgba(0,0,255,.09);box-shadow:0 24px 55px rgba(3,27,90,.14)}
+.p8-nav-menu a:hover{background:#f1f7ff;color:var(--corp-blue)}
+.p8-nav-actions .p8-btn-primary{background:linear-gradient(135deg,#0000ff,#0874ff);box-shadow:0 10px 24px rgba(0,0,255,.2)}
+.p8-nav-actions .p8-btn-primary:hover{background:linear-gradient(135deg,#0808dc,#0463dd)}
+.p8-nav-actions .h18-whatsapp,.h18-whatsapp{background:var(--wa)!important;color:#fff!important;border-color:var(--wa)!important}.p8-nav-actions .h18-whatsapp:hover,.h18-whatsapp:hover{background:var(--wa-hover)!important;color:#fff!important}
+@media(max-width:760px){html{scroll-padding-top:78px}}

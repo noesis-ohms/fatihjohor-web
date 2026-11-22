@@ -1,0 +1,24 @@
+/* Phase 30 — flatter seven-item primary navigation */
+@media(min-width:901px){
+  .p8-nav{gap:12px}
+  .p8-brand{min-width:190px;gap:9px}
+  .p8-brand strong{font-size:.96rem}
+  .p8-brand small{font-size:.64rem;max-width:185px}
+  .p8-nav-links{gap:0}
+  .p8-nav-links>a{display:flex;align-items:center;min-height:42px;padding:9px 7px;font-size:.77rem;line-height:1.15;letter-spacing:-.01em}
+
+  .p8-nav-links .p30-nav-join{font-weight:820}
+  .p8-nav-actions{gap:7px;margin-left:3px}
+  .p8-nav-actions .site-whatsapp{padding-inline:12px;font-size:.78rem}
+  .p8-nav-actions .p8-btn{padding-inline:13px;font-size:.78rem}
+}
+@media(min-width:901px) and (max-width:1180px){
+  .p8-brand{min-width:172px}
+  .p8-brand small{display:none}
+  .p8-nav-links>a{padding-inline:5px;font-size:.72rem}
+  .p8-nav-actions .site-whatsapp{display:none}
+}
+@media(max-width:900px){
+  .p8-nav-links .p30-nav-ohd{display:block}
+  .p8-nav-links>a{font-size:.92rem}
+}

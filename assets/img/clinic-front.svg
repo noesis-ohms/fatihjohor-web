@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+<title id="title">Klinik Al-Fatih Johor clinic front placeholder</title>
+<desc id="desc">Modern clinic front illustration for Klinik Teratai Al-Fatih and Klinik Tropika Al-Fatih.</desc>
+<defs><linearGradient id="sky" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#dbf5ff"/><stop offset="1" stop-color="#ffffff"/></linearGradient><linearGradient id="wall" x1="0" x2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eef7ff"/></linearGradient></defs>
+<rect width="1200" height="800" fill="url(#sky)"/>
+<rect x="90" y="170" width="1020" height="480" rx="34" fill="url(#wall)" stroke="#dbeafe" stroke-width="8"/>
+<rect x="120" y="110" width="960" height="120" rx="28" fill="#0b3b89"/>
+<text x="600" y="183" font-family="Arial, Helvetica, sans-serif" font-size="50" font-weight="800" text-anchor="middle" fill="#fff">KLINIK AL-FATIH JOHOR</text>
+<text x="600" y="220" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" text-anchor="middle" fill="#b7eaff">GP • OHD • Ultrasound • Weight Management</text>
+<rect x="160" y="270" width="280" height="270" rx="22" fill="#e0f2fe" stroke="#93c5fd" stroke-width="5"/>
+<rect x="770" y="270" width="280" height="270" rx="22" fill="#e0f2fe" stroke="#93c5fd" stroke-width="5"/>
+<rect x="480" y="290" width="240" height="360" rx="22" fill="#0b3b89"/>
+<rect x="514" y="330" width="172" height="140" rx="14" fill="#cffafe"/>
+<circle cx="675" cy="485" r="12" fill="#fff"/>
+<rect x="90" y="650" width="1020" height="70" fill="#ef233c"/>
+<text x="600" y="696" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="800" text-anchor="middle" fill="#fff">Rawatan Asas, Lebih Mudah, Lebih Dekat</text>
+<circle cx="250" cy="405" r="64" fill="#fff"/><path d="M250 360v90M205 405h90" stroke="#ef233c" stroke-width="28" stroke-linecap="round"/>
+<circle cx="910" cy="405" r="64" fill="#fff"/><path d="M870 420c48 36 95 5 91-48-35 28-67 29-91 48z" fill="#0b3b89"/><path d="M917 352c35 11 58 42 58 78 0 45-37 82-82 82-23 0-44-10-59-25 13 31 43 53 79 53 47 0 85-38 85-85 0-46-36-84-81-85z" fill="#18b7e9" opacity=".8"/>
+</svg>

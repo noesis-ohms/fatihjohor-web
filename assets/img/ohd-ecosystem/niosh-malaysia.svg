@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="96" viewBox="0 0 320 96" role="img" aria-labelledby="t d">
+  <title id="t">NIOSH Malaysia</title>
+  <desc id="d">Typographic trust logo for NIOSH Malaysia.</desc>
+  <rect width="320" height="96" rx="18" fill="#ffffff"/>
+  <circle cx="46" cy="48" r="24" fill="#0e4ea6" opacity="0.1"/>
+  <path d="M34 58V38h7l9 11V38h8v20h-7l-9-11v11h-8zm35 0V38h8v20h-8zm16 0V38h8v7h6v-7h8v20h-8v-7h-6v7h-8zm36-10c0-6 5-11 12-11 4 0 8 1 10 4l-5 5c-1-1-3-2-5-2-2 0-4 2-4 4s2 4 4 4c2 0 4-1 5-2l5 5c-2 3-6 4-10 4-7 0-12-5-12-11zm42 10V38h8v20h-8zm16 0V38h8v13h11v7h-19z" fill="#0e4ea6"/>
+  <text x="211" y="41" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#102744">NIOSH MALAYSIA</text>
+  <text x="211" y="60" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="600" fill="#5f7388">National Institute of Occupational Safety and Health</text>
+</svg>

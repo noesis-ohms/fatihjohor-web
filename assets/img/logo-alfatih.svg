@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420" role="img" aria-labelledby="title desc">
+  <title id="title">Klinik Al-Fatih Johor logo placeholder</title>
+  <desc id="desc">Modern geometric clinic logo inspired by Malaysian Islamic pattern colors.</desc>
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#18b7e9"/><stop offset="1" stop-color="#0b3b89"/></linearGradient>
+    <filter id="s" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-opacity=".22"/></filter>
+  </defs>
+  <rect width="420" height="420" rx="72" fill="#f6fbff"/>
+  <g filter="url(#s)">
+    <path d="M210 22 250 98l84-14-14 84 76 42-76 42 14 84-84-14-40 76-40-76-84 14 14-84-76-42 76-42-14-84 84 14z" fill="url(#g)" stroke="#0c2d68" stroke-width="10"/>
+    <path d="M210 86c68 0 124 55 124 124s-56 124-124 124S86 279 86 210 142 86 210 86z" fill="#e8f8ff" opacity=".96"/>
+    <path d="M210 133c-42 0-77 34-77 77s35 77 77 77c31 0 58-18 70-45-15 12-35 19-57 19-51 0-92-41-92-92 0-16 4-31 11-44-19 14-32 37-32 63 0 55 45 100 100 100s100-45 100-100c0-18-5-36-14-50-18-4-36-5-54-5h-32z" fill="#0b3b89" opacity=".18"/>
+    <text x="210" y="198" font-family="Arial, Helvetica, sans-serif" font-size="45" font-weight="800" text-anchor="middle" fill="#0b3b89">AL-FATIH</text>
+    <text x="210" y="240" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="900" text-anchor="middle" fill="#ef233c">JOHOR</text>
+  </g>
+</svg>

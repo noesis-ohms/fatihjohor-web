@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="96" viewBox="0 0 320 96" role="img" aria-labelledby="t d">
+  <title id="t">PERKESO</title>
+  <desc id="d">Typographic trust logo for PERKESO SOCSO Malaysia.</desc>
+  <rect width="320" height="96" rx="18" fill="#ffffff"/>
+  <circle cx="48" cy="48" r="26" fill="#ffcc00" opacity="0.24"/>
+  <path d="M28 59V37h10c5 0 10 3 10 8s-5 8-10 8h-2v6h-8zm8-12h1c2 0 4-1 4-2s-2-2-4-2h-1v4zm18 12V37h8v22h-8zm16 0V37h9l4 7 4-7h9v22h-8V48l-5 8-5-8v11h-8zm34 0V37h9c7 0 11 3 11 8 0 3-2 6-6 7l6 7h-9l-5-6h-1v6h-8zm8-12h1c2 0 4-1 4-2s-2-2-4-2h-1v4zm19 1c0-6 4-11 12-11 4 0 8 1 10 3l-4 5c-2-1-4-2-6-2-2 0-4 2-4 5s2 5 5 5c1 0 2 0 3-1v-1h-4v-5h11v10c-2 2-6 4-10 4-8 0-13-5-13-11z" fill="#124f9c"/>
+  <text x="203" y="41" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#102744">PERKESO</text>
+  <text x="203" y="60" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="600" fill="#5f7388">Pertubuhan Keselamatan Sosial · SOCSO Malaysia</text>
+</svg>

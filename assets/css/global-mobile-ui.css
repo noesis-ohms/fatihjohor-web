@@ -1,0 +1,307 @@
+/* Phase 33 — Global Mobile UI System */
+@media (max-width: 768px) {
+  body:not(.admin-page) .p8-main,
+  body:not(.admin-page) .modern-page,
+  body[data-page-key] {
+    overflow-x: clip;
+  }
+
+  body:not(.admin-page) .p8-hero-copy h1 {
+    font-size: 36px;
+    line-height: 1.06;
+  }
+
+  body:not(.admin-page) .p8-hero-visual img {
+    max-height: 260px;
+  }
+}
+
+/* Shared high-traffic family adapters */
+@media (max-width: 768px) {
+  /* Generic public-page system */
+  body[data-page-key] .p8-hero,
+  body[data-page-key] .p8-hero-grid,
+  body[data-page-key] .p8-hero-copy,
+  body[data-page-key] .p8-actions,
+  body[data-page-key] .p8-fact-row,
+  body[data-page-key] .p8-hero-visual {
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  body[data-page-key] .p8-hero { padding: 34px 0 38px; overflow-x: clip; }
+  body[data-page-key] .p8-hero-grid { gap: 20px; }
+  body[data-page-key] .p8-eyebrow { font-size: 12px; line-height: 1.35; letter-spacing: .09em; }
+  body[data-page-key] .p8-hero-copy h1 { margin: 10px 0 12px; font-size: clamp(32px, 8.8vw, 36px); line-height: 1.05; letter-spacing: -.045em; max-width: 100%; }
+  body[data-page-key] .p8-lead { font-size: 16px; line-height: 1.58; }
+  body[data-page-key] .p8-actions { gap: 9px; margin-top: 18px; }
+  body[data-page-key] .p8-actions .p8-btn { min-height: 44px; padding: 10px 14px; font-size: 15px; line-height: 1.2; min-width: 0; }
+  body[data-page-key] .p8-fact-row { gap: 6px; margin-top: 18px; }
+  body[data-page-key] .p8-fact-row span { padding: 7px 10px; font-size: 13px; line-height: 1.25; }
+  body[data-page-key] .p8-hero-visual { margin-top: 2px; }
+  body[data-page-key] .p8-hero-visual img { height: auto; max-height: 240px; object-fit: contain; }
+  body[data-page-key] .p8-section { padding: 44px 0; }
+  body[data-page-key] .p8-section-head { margin-bottom: 20px; }
+  body[data-page-key] .p8-section-head h2 { font-size: clamp(26px, 7.6vw, 30px); line-height: 1.08; }
+  body[data-page-key] .p8-section-head p { font-size: 16px; line-height: 1.62; }
+
+  /* Homepage: preserve Phase 31.1 structure, only harmonise scale. */
+  body.phase11-home .h18-hero-copy h1 { font-size: clamp(34px, 9.8vw, 38px); line-height: .98; letter-spacing: -.045em; }
+  body.phase11-home .h18-kicker { font-size: 11px; line-height: 1.35; }
+  body.phase11-home .h18-location { font-size: 14px; }
+  body.phase11-home .h18-hero-copy > p { font-size: 16px; line-height: 1.55; }
+  body.phase11-home .h18-hero-actions .h18-btn,
+  body.phase11-home .h18-panel-link { font-size: 15px; }
+  body.phase11-home .h18-hero-grid,
+  body.phase11-home .h18-hero-copy,
+  body.phase11-home .h18-hero-visual { min-width: 0; max-width: 100%; }
+
+  /* Booking: Phase 32.3 remains authoritative; only harmonise scale. */
+  .p32-booking-landing,
+  .p32-doctor-booking,
+  .p32-booking-heading,
+  .p32-doctor-hero,
+  .booking-doctor-card,
+  .booking-doctor-card-body { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  .p32-booking-heading h1 { font-size: clamp(32px, 8.8vw, 36px); line-height: 1.05; }
+  .p32-booking-heading p { font-size: 16px; line-height: 1.58; }
+  .p32-doctor-hero h1 { font-size: clamp(32px, 8.8vw, 36px); }
+  .p32-mobile-hero-actions .p8-btn,
+  .booking-doctor-card .p8-btn,
+  .p32-submit { font-size: 15px; }
+
+  /* Corporate */
+  .c27-page,
+  .c27-hero,
+  .c27-hero-grid,
+  .c27-hero-copy,
+  .c27-actions,
+  .c27-hero-visual { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  .c27-hero { padding: 38px 0 40px; overflow-x: clip; }
+  .c27-hero h1 { font-size: clamp(34px, 9.4vw, 38px); line-height: 1.03; letter-spacing: -.045em; }
+  .c27-hero p { font-size: 16px; line-height: 1.58; }
+  .c27-actions { gap: 9px; margin-top: 18px; }
+  .c27-actions .c27-btn { min-height: 44px; padding: 10px 14px; font-size: 15px; }
+  .c27-hero-visual img { width: 100%; height: auto; max-height: 240px; object-fit: contain; }
+  .c27-section { padding: 46px 0; }
+  .c27-heading h2 { font-size: clamp(26px, 7.6vw, 30px); line-height: 1.08; }
+
+  /* Panel Clinic */
+  .p29-page,
+  .p29-hero,
+  .p29-hero-grid,
+  .p29-actions,
+  .p29-stats,
+  .p29-hero-card { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  .p29-page { overflow-x: clip; }
+  .p29-hero { padding: 38px 0 40px; }
+  .p29-hero h1 { font-size: clamp(32px, 8.8vw, 36px); line-height: 1.04; letter-spacing: -.045em; }
+  .p29-hero p { font-size: 16px; line-height: 1.58; }
+  .p29-actions { gap: 9px; margin-top: 18px; }
+  .p29-actions .p29-btn { min-height: 44px; padding: 10px 14px; font-size: 15px; }
+  .p29-stats { gap: 8px; margin-top: 18px; }
+  .p29-stats span { padding: 9px 10px; }
+  .p29-stats strong { font-size: 17px; }
+  .p29-hero-card { padding: 20px; }
+  .p29-hero-card h2 { font-size: 24px; line-height: 1.08; }
+  .p29-section { padding: 46px 0; }
+}
+
+/* Specialized service adapters */
+@media (max-width: 768px) {
+  /* Medical Check-up */
+  body[data-page-key="medical-checkup.html"] .m22-page,
+  body[data-page-key="medical-checkup.html"] .m22-hero,
+  body[data-page-key="medical-checkup.html"] .m22-hero-grid,
+  body[data-page-key="medical-checkup.html"] .m22-hero-copy,
+  body[data-page-key="medical-checkup.html"] .m22-hero-panel,
+  body[data-page-key="medical-checkup.html"] .m22-price-card { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  body[data-page-key="medical-checkup.html"] .m22-page { overflow-x: clip; }
+  body[data-page-key="medical-checkup.html"] .m22-hero { padding: 34px 0 38px; overflow-x: clip; }
+  body[data-page-key="medical-checkup.html"] .m22-hero-grid { grid-template-columns: 1fr; gap: 18px; }
+  body[data-page-key="medical-checkup.html"] .m22-eyebrow { font-size: 11px; letter-spacing: .11em; }
+  body[data-page-key="medical-checkup.html"] .m22-hero-copy h1 { margin: 10px 0 12px; font-size: clamp(32px, 8.8vw, 36px); line-height: 1.04; letter-spacing: -.045em; }
+  body[data-page-key="medical-checkup.html"] .m22-hero-copy > p { font-size: 16px; line-height: 1.58; }
+  body[data-page-key="medical-checkup.html"] .m22-price-card { width: 100%; margin-top: 16px; padding: 12px 14px; gap: 12px; justify-content: space-between; }
+  body[data-page-key="medical-checkup.html"] .m22-price-card strong { font-size: 15px; }
+  body[data-page-key="medical-checkup.html"] .m22-price-card strong b { font-size: 24px; }
+  body[data-page-key="medical-checkup.html"] .m22-price-card > span { padding: 9px 10px; font-size: 12px; white-space: nowrap; }
+  body[data-page-key="medical-checkup.html"] .m22-hero-points,
+  body[data-page-key="medical-checkup.html"] .m22-jumps { width: 100%; max-width: 100%; margin: 14px 0 0; padding: 0 0 4px; flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scrollbar-width: none; }
+  body[data-page-key="medical-checkup.html"] .m22-hero-points::-webkit-scrollbar,
+  body[data-page-key="medical-checkup.html"] .m22-jumps::-webkit-scrollbar { display: none; }
+  body[data-page-key="medical-checkup.html"] .m22-hero-points span,
+  body[data-page-key="medical-checkup.html"] .m22-jumps a { flex: 0 0 auto; font-size: 12px; }
+  body[data-page-key="medical-checkup.html"] .m22-hero-panel { padding: 18px; border-radius: 22px; overflow: hidden; }
+  body[data-page-key="medical-checkup.html"] .m22-panel-top { align-items: center; }
+  body[data-page-key="medical-checkup.html"] .m22-panel-top b { position: static; flex: 0 0 58px; width: 58px; height: 58px; font-size: 17px; }
+  body[data-page-key="medical-checkup.html"] .m22-panel-ecg { max-height: 54px; overflow: hidden; margin: 0; }
+  body[data-page-key="medical-checkup.html"] .m22-panel-ecg svg { height: 54px; }
+  body[data-page-key="medical-checkup.html"] .m22-hero-panel h2 { font-size: 26px; line-height: 1.06; }
+  body[data-page-key="medical-checkup.html"] .m22-panel-tests { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  body[data-page-key="medical-checkup.html"] .m22-panel-tests span { min-height: 42px; font-size: 11px; padding: 5px; }
+  body[data-page-key="medical-checkup.html"] .m22-section { padding: 44px 0; }
+  body[data-page-key="medical-checkup.html"] .m22-heading h2 { font-size: clamp(26px, 7.6vw, 30px); line-height: 1.08; }
+
+  /* Men's Health */
+  body[data-page-key="mens-health.html"] .mens-hero,
+  body[data-page-key="mens-health.html"] .mens-hero-grid,
+  body[data-page-key="mens-health.html"] .mens-hero-copy,
+  body[data-page-key="mens-health.html"] .mens-hero-media { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  body[data-page-key="mens-health.html"] .mens-hero { padding: 34px 0 38px; overflow-x: clip; }
+  body[data-page-key="mens-health.html"] .mens-hero-grid { grid-template-columns: 1fr; gap: 18px; }
+  body[data-page-key="mens-health.html"] .mens-kicker { font-size: 11px; }
+  body[data-page-key="mens-health.html"] .mens-hero-copy h1 { font-size: clamp(32px, 8.8vw, 36px); line-height: 1.04; }
+  body[data-page-key="mens-health.html"] .mens-lead { font-size: 16px; line-height: 1.58; }
+  body[data-page-key="mens-health.html"] .mens-actions { gap: 9px; margin-top: 18px; }
+  body[data-page-key="mens-health.html"] .mens-actions .mens-btn { min-height: 44px; padding: 10px 14px; font-size: 15px; }
+  body[data-page-key="mens-health.html"] .mens-hero-media img { width: 100%; height: auto; max-height: 250px; object-fit: contain; }
+  body[data-page-key="mens-health.html"] .mens-local-tags { max-width: 100%; overflow-x: auto; flex-wrap: nowrap; }
+
+  /* Weight Management */
+  body[data-page-key="weight-loss.html"] .wm28-hero,
+  body[data-page-key="weight-loss.html"] .wm28-hero-grid,
+  body[data-page-key="weight-loss.html"] .wm28-hero-copy,
+  body[data-page-key="weight-loss.html"] .wm28-hero-media { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  body[data-page-key="weight-loss.html"] .wm28-hero { padding: 34px 0 38px; overflow-x: clip; }
+  body[data-page-key="weight-loss.html"] .wm28-hero-grid { grid-template-columns: 1fr; gap: 18px; }
+  body[data-page-key="weight-loss.html"] .wm28-eyebrow { font-size: 11px; }
+  body[data-page-key="weight-loss.html"] .wm28-hero-copy h1 { font-size: clamp(32px, 8.8vw, 36px); line-height: 1.04; }
+  body[data-page-key="weight-loss.html"] .wm28-hero-copy > p { font-size: 16px; line-height: 1.58; }
+  body[data-page-key="weight-loss.html"] .wm28-actions { gap: 9px; margin-top: 18px; }
+  body[data-page-key="weight-loss.html"] .wm28-actions .wm28-btn { min-height: 44px; padding: 10px 14px; font-size: 15px; }
+  body[data-page-key="weight-loss.html"] .wm28-hero-media img { width: 100%; height: auto; max-height: 250px; object-fit: contain; }
+  body[data-page-key="weight-loss.html"] .wm28-trust-row { max-width: 100%; overflow-x: auto; flex-wrap: nowrap; }
+
+  /* Hair Loss */
+  body[data-page-key="hair-loss.html"] .h21-page,
+  body[data-page-key="hair-loss.html"] .h21-hero,
+  body[data-page-key="hair-loss.html"] .h21-hero-grid,
+  body[data-page-key="hair-loss.html"] .h21-hero-copy,
+  body[data-page-key="hair-loss.html"] .h21-hero-visual { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  body[data-page-key="hair-loss.html"] .h21-page { overflow-x: clip; }
+  body[data-page-key="hair-loss.html"] .h21-hero { padding: 34px 0 38px; }
+  body[data-page-key="hair-loss.html"] .h21-hero-grid { grid-template-columns: 1fr; gap: 18px; }
+  body[data-page-key="hair-loss.html"] .h21-eyebrow { font-size: 11px; }
+  body[data-page-key="hair-loss.html"] .h21-hero-copy h1 { font-size: clamp(32px, 8.8vw, 36px); line-height: 1.04; }
+  body[data-page-key="hair-loss.html"] .h21-hero-copy > p { font-size: 16px; line-height: 1.58; }
+  body[data-page-key="hair-loss.html"] .h21-hero-points,
+  body[data-page-key="hair-loss.html"] .h21-jumps { width: 100%; max-width: 100%; margin-right: 0; padding-right: 0; overflow-x: auto; overscroll-behavior-x: contain; }
+  body[data-page-key="hair-loss.html"] .h21-hero-visual img { width: 100%; height: auto; max-height: 250px; object-fit: contain; }
+  body[data-page-key="hair-loss.html"] .h21-visual-note { position: static; margin-top: 8px; }
+
+  /* Minor Surgery */
+  body[data-page-key="minor-surgery.html"] .ms24-page,
+  body[data-page-key="minor-surgery.html"] .ms24-hero,
+  body[data-page-key="minor-surgery.html"] .ms24-hero-grid,
+  body[data-page-key="minor-surgery.html"] .ms24-hero-copy,
+  body[data-page-key="minor-surgery.html"] .ms24-hero-media { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  body[data-page-key="minor-surgery.html"] .ms24-page { overflow-x: clip; }
+  body[data-page-key="minor-surgery.html"] .ms24-hero { padding: 34px 0 38px; }
+  body[data-page-key="minor-surgery.html"] .ms24-hero-grid { grid-template-columns: 1fr; gap: 18px; }
+  body[data-page-key="minor-surgery.html"] .ms24-eyebrow { font-size: 11px; }
+  body[data-page-key="minor-surgery.html"] .ms24-hero-copy h1 { font-size: clamp(32px, 8.8vw, 36px); line-height: 1.04; }
+  body[data-page-key="minor-surgery.html"] .ms24-hero-copy > p { font-size: 16px; line-height: 1.58; }
+  body[data-page-key="minor-surgery.html"] .ms24-trust,
+  body[data-page-key="minor-surgery.html"] .ms24-jumps { width: 100%; max-width: 100%; margin-right: 0; padding-right: 0; overflow-x: auto; overscroll-behavior-x: contain; }
+  body[data-page-key="minor-surgery.html"] .ms24-hero-media img { width: 100%; height: auto; max-height: 250px; object-fit: contain; }
+
+  /* Circumcision */
+  body[data-page-key="sunat.html"] .s25-hero,
+  body[data-page-key="sunat.html"] .s25-hero-grid,
+  body[data-page-key="sunat.html"] .s25-hero-copy,
+  body[data-page-key="sunat.html"] .s25-hero-card { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  body[data-page-key="sunat.html"] .s25-hero { padding: 34px 0 38px; overflow-x: clip; }
+  body[data-page-key="sunat.html"] .s25-hero-grid { grid-template-columns: 1fr; gap: 18px; }
+  body[data-page-key="sunat.html"] .s25-eyebrow { font-size: 11px; }
+  body[data-page-key="sunat.html"] .s25-hero-copy h1 { font-size: clamp(32px, 8.8vw, 36px); line-height: 1.04; }
+  body[data-page-key="sunat.html"] .s25-hero-copy > p { font-size: 16px; line-height: 1.58; }
+  body[data-page-key="sunat.html"] .s25-price-row { grid-template-columns: 1fr 1fr; gap: 8px; }
+  body[data-page-key="sunat.html"] .s25-price-row article { padding: 14px; }
+  body[data-page-key="sunat.html"] .s25-price-row strong { font-size: 24px; }
+  body[data-page-key="sunat.html"] .s25-hero-points,
+  body[data-page-key="sunat.html"] .s25-jumps { width: 100%; max-width: 100%; margin-right: 0; padding-right: 0; overflow-x: auto; overscroll-behavior-x: contain; }
+  body[data-page-key="sunat.html"] .s25-hero-card { padding: 18px; }
+  body[data-page-key="sunat.html"] .s25-hero-card h2 { font-size: 24px; line-height: 1.08; }
+  body[data-page-key="sunat.html"] .s25-doctor img { width: 72px; height: 72px; object-fit: cover; }
+
+  /* FOMEMA */
+  body[data-page-key="fomema.html"] .f26-hero,
+  body[data-page-key="fomema.html"] .f26-hero-grid,
+  body[data-page-key="fomema.html"] .f26-hero-copy,
+  body[data-page-key="fomema.html"] .f26-hero-card { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  body[data-page-key="fomema.html"] .f26-hero { padding: 34px 0 38px; overflow-x: clip; }
+  body[data-page-key="fomema.html"] .f26-hero-grid { grid-template-columns: 1fr; gap: 18px; }
+  body[data-page-key="fomema.html"] .f26-eyebrow { font-size: 11px; }
+  body[data-page-key="fomema.html"] .f26-hero-copy h1 { font-size: clamp(32px, 8.8vw, 36px); line-height: 1.04; }
+  body[data-page-key="fomema.html"] .f26-hero-copy > p { font-size: 16px; line-height: 1.58; }
+  body[data-page-key="fomema.html"] .f26-actions { gap: 9px; margin-top: 18px; }
+  body[data-page-key="fomema.html"] .f26-actions .f26-btn { min-height: 44px; padding: 10px 14px; font-size: 15px; }
+  body[data-page-key="fomema.html"] .f26-hero-card { padding: 18px; }
+  body[data-page-key="fomema.html"] .f26-hero-card h2 { font-size: 24px; line-height: 1.08; }
+
+  /* Vaccination */
+  body[data-page-key="vaksin.html"] .vax-hero,
+  body[data-page-key="vaksin.html"] .vax-hero-grid,
+  body[data-page-key="vaksin.html"] .vax-hero-copy,
+  body[data-page-key="vaksin.html"] .vax-hero-image { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  body[data-page-key="vaksin.html"] .vax-hero { padding: 34px 0 38px; overflow-x: clip; }
+  body[data-page-key="vaksin.html"] .vax-hero-grid { grid-template-columns: 1fr; gap: 18px; }
+  body[data-page-key="vaksin.html"] .vax-hero-copy h1 { font-size: clamp(32px, 8.8vw, 36px); line-height: 1.04; }
+  body[data-page-key="vaksin.html"] .vax-hero-copy > p { font-size: 16px; line-height: 1.58; }
+  body[data-page-key="vaksin.html"] .vax-hero-image img { width: 100%; height: auto; max-height: 250px; object-fit: contain; }
+  body[data-page-key="vaksin.html"] .vax-trust-row { max-width: 100%; overflow-x: auto; flex-wrap: nowrap; }
+
+  /* Hajj / Umrah */
+  body[data-page-key="pemeriksaan-haji.html"] .hajj-hero,
+  body[data-page-key="pemeriksaan-haji.html"] .hajj-hero-grid,
+  body[data-page-key="pemeriksaan-haji.html"] .hajj-hero-copy,
+  body[data-page-key="pemeriksaan-haji.html"] .hajj-hero-media { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  body[data-page-key="pemeriksaan-haji.html"] .hajj-hero { padding: 34px 0 38px; overflow-x: clip; }
+  body[data-page-key="pemeriksaan-haji.html"] .hajj-hero-grid { grid-template-columns: 1fr; gap: 18px; }
+  body[data-page-key="pemeriksaan-haji.html"] .hajj-kicker { font-size: 11px; }
+  body[data-page-key="pemeriksaan-haji.html"] .hajj-hero-copy h1 { font-size: clamp(32px, 8.8vw, 36px); line-height: 1.04; }
+  body[data-page-key="pemeriksaan-haji.html"] .hajj-lead { font-size: 16px; line-height: 1.58; }
+  body[data-page-key="pemeriksaan-haji.html"] .hajj-hero-actions { gap: 9px; margin-top: 18px; }
+  body[data-page-key="pemeriksaan-haji.html"] .hajj-hero-actions .hajj-btn { min-height: 44px; padding: 10px 14px; font-size: 15px; }
+  body[data-page-key="pemeriksaan-haji.html"] .hajj-hero-media img { width: 100%; height: auto; max-height: 250px; object-fit: contain; }
+  body[data-page-key="pemeriksaan-haji.html"] .hajj-local-tags { max-width: 100%; overflow-x: auto; flex-wrap: nowrap; }
+
+  /* Mental Health */
+  body[data-page-key="mental-health.html"] .mh20-hero,
+  body[data-page-key="mental-health.html"] .mh20-hero-grid,
+  body[data-page-key="mental-health.html"] .mh20-hero-copy,
+  body[data-page-key="mental-health.html"] .mh20-hero-media { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  body[data-page-key="mental-health.html"] .mh20-hero { padding: 34px 0 38px; overflow-x: clip; }
+  body[data-page-key="mental-health.html"] .mh20-hero-grid { grid-template-columns: 1fr; gap: 18px; }
+  body[data-page-key="mental-health.html"] .mh20-eyebrow { font-size: 11px; }
+  body[data-page-key="mental-health.html"] .mh20-hero-copy h1 { font-size: clamp(32px, 8.8vw, 36px); line-height: 1.04; }
+  body[data-page-key="mental-health.html"] .mh20-hero-copy > p { font-size: 16px; line-height: 1.58; }
+  body[data-page-key="mental-health.html"] .mh20-hero-points { max-width: 100%; }
+  body[data-page-key="mental-health.html"] .mh20-hero-links { gap: 9px; }
+  body[data-page-key="mental-health.html"] .mh20-hero-links a { font-size: 15px; }
+  body[data-page-key="mental-health.html"] .mh20-hero-media img { width: 100%; height: auto; max-height: 250px; object-fit: contain; }
+  body[data-page-key="mental-health.html"] .mh20-hero-media figcaption { position: static; margin-top: 8px; }
+
+  /* Skim Perubatan MADANI */
+  body[data-page-key="skim-perubatan-madani.html"] .m23-page,
+  body[data-page-key="skim-perubatan-madani.html"] .m23-hero,
+  body[data-page-key="skim-perubatan-madani.html"] .m23-hero-grid,
+  body[data-page-key="skim-perubatan-madani.html"] .m23-hero-copy,
+  body[data-page-key="skim-perubatan-madani.html"] .m23-hero-panel { min-width: 0; max-width: 100%; box-sizing: border-box; }
+  body[data-page-key="skim-perubatan-madani.html"] .m23-page { overflow-x: clip; }
+  body[data-page-key="skim-perubatan-madani.html"] .m23-hero { padding: 34px 0 38px; overflow-x: clip; }
+  body[data-page-key="skim-perubatan-madani.html"] .m23-hero-grid { grid-template-columns: 1fr; gap: 18px; }
+  body[data-page-key="skim-perubatan-madani.html"] .m23-eyebrow { font-size: 11px; }
+  body[data-page-key="skim-perubatan-madani.html"] .m23-hero-copy h1 { font-size: clamp(32px, 8.8vw, 36px); line-height: 1.04; }
+  body[data-page-key="skim-perubatan-madani.html"] .m23-hero-copy > p { font-size: 16px; line-height: 1.58; }
+  body[data-page-key="skim-perubatan-madani.html"] .m23-hero-points,
+  body[data-page-key="skim-perubatan-madani.html"] .m23-jumps { width: 100%; max-width: 100%; margin-right: 0; padding-right: 0; overflow-x: auto; overscroll-behavior-x: contain; }
+  body[data-page-key="skim-perubatan-madani.html"] .m23-official-actions { gap: 9px; margin-top: 16px; }
+  body[data-page-key="skim-perubatan-madani.html"] .m23-official-actions a { min-height: 44px; padding: 10px 14px; font-size: 15px; }
+  body[data-page-key="skim-perubatan-madani.html"] .m23-hero-panel { padding: 18px; }
+  body[data-page-key="skim-perubatan-madani.html"] .m23-panel-tier { padding: 12px 0; }
+  body[data-page-key="skim-perubatan-madani.html"] .m23-panel-tier strong { font-size: 24px; }
+  body[data-page-key="skim-perubatan-madani.html"] .m23-panel-visit { padding: 14px; }
+  body[data-page-key="skim-perubatan-madani.html"] .m23-panel-visit strong { font-size: 22px; }
+}

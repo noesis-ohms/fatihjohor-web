@@ -1,0 +1,54 @@
+/* Phase 31.1 — homepage mobile hero hard containment.
+   Desktop/tablet intentionally untouched; this file loads after Phase 18. */
+@media(max-width:600px){
+  .h18-home{overflow-x:clip}
+  .h18-hero{padding:22px 0 18px;overflow-x:clip}
+  .h18-hero::before{opacity:.2;background-position:64% top;background-size:auto 500px}
+  .h18-hero::after{background:linear-gradient(180deg,rgba(4,14,91,.96) 0%,rgba(0,20,135,.9) 46%,rgba(0,63,190,.84) 100%)}
+  .h18-hero-grid,.h18-hero-copy,.h18-hero-visual{min-width:0;max-width:100%}
+  .h18-hero-grid{gap:18px;width:100%}
+
+  .h18-hero-copy{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:8px;align-items:stretch;min-width:0}
+  .h18-kicker,.h18-hero-copy h1,.h18-location,.h18-hero-copy>p,.h18-service-pills{grid-column:1/-1;min-width:0}
+  .h18-kicker{gap:9px;font-size:.52rem;letter-spacing:.12em;white-space:normal;line-height:1.35}
+  .h18-kicker span{width:26px;flex:0 0 26px}
+  .h18-hero-copy h1{font-size:clamp(2.35rem,11.4vw,3.35rem);line-height:.93;letter-spacing:-.055em;margin:13px 0 11px;overflow-wrap:anywhere}
+  .h18-location{font-size:.8rem;line-height:1.35;margin-bottom:8px}
+  .h18-hero-copy>p{font-size:.78rem;line-height:1.5;max-width:100%;overflow-wrap:anywhere}
+
+  /* Make the primary booking CTA full width, then place WhatsApp + panel check safely below. */
+  .h18-hero-actions{display:contents}
+  .h18-hero-actions .h18-btn{width:100%;min-width:0;max-width:100%;min-height:44px;padding:10px 8px;font-size:.68rem;gap:7px;box-sizing:border-box;white-space:nowrap}
+  .h18-hero-actions .h18-btn-light{grid-column:1/-1;margin-top:17px}
+  .h18-hero-actions .h18-whatsapp{grid-column:1;margin-top:8px}
+  .h18-panel-link{grid-column:2;display:flex;align-items:center;justify-content:center;min-width:0;min-height:44px;margin-top:8px;padding:10px 7px;border:1px solid rgba(255,255,255,.42);border-radius:12px;background:rgba(255,255,255,.08);font-size:.66rem;line-height:1.15;text-align:center;white-space:nowrap;box-sizing:border-box}
+
+  /* Scroll stays inside its own rail; it must never increase the page width. */
+  .h18-service-pills{width:100%;max-width:100%;margin:14px 0 0;min-width:0;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;gap:7px;padding:0 0 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;box-sizing:border-box}
+  .h18-service-pills::-webkit-scrollbar{display:none}
+  .h18-service-pills a{flex:0 0 auto;max-width:82vw;padding:7px 10px;font-size:.61rem;white-space:nowrap;background:rgba(6,18,100,.34)}
+
+  /* Override legacy negative-margin/carousel rules from Phase 18. */
+  .h18-hero-visual{padding-top:0;margin-right:0;overflow:visible;margin-top:3px;width:100%}
+  .h18-tagline{display:none}
+  .h18-branch-pair{display:grid;grid-template-columns:1fr;overflow:visible;max-width:100%;width:100%;gap:10px;padding:0;scroll-snap-type:none}
+  .h18-branch-pair::-webkit-scrollbar{display:none}
+  .h18-hero-branch{flex:none;width:100%;max-width:100%;height:164px;min-width:0;border-radius:20px;border-color:rgba(122,228,255,.62);box-shadow:0 14px 30px rgba(0,12,78,.24);scroll-snap-align:none;box-sizing:border-box}
+  .h18-hero-branch:last-child{margin-right:0}
+  .h18-hero-branch img{object-position:center 45%}
+  .h18-branch-shade{background:linear-gradient(to top,rgba(0,13,60,.94),rgba(0,13,60,.05) 68%)}
+  .h18-branch-copy{left:12px;right:12px;bottom:10px}
+  .h18-branch-copy small{font-size:.48rem;line-height:1.2;letter-spacing:.045em}
+  .h18-branch-copy strong{margin:4px 0 0;font-size:.76rem;line-height:1.12}
+  .h18-branch-copy span{display:none}
+  .h18-hero-branch>b{display:none}
+  .h18-service-ribbon{display:none}
+}
+
+@media(max-width:370px){
+  .h18-kicker{font-size:.47rem;letter-spacing:.09em}
+  .h18-hero-copy h1{font-size:2.25rem}
+  .h18-hero-actions .h18-btn,.h18-panel-link{font-size:.62rem}
+  .h18-hero-branch{height:152px}
+  .h18-branch-copy strong{font-size:.7rem}
+}
