@@ -1,25 +1,8 @@
 headersOrigin = "config"
 redirectsOrigin = "config"
 
-[functions]
-
-  [functions.emails]
-  included_files = [
-    "./emails/**",
-    "./emails/**"
-  ]
-
-  [functions."*"]
-
-[[plugins]]
-origin = "ui"
-package = "@netlify/plugin-emails"
-pinned_version = "1"
-
-  [plugins.inputs]
-
 [build]
-publish = "/Users/farhanbinzulkifli/Downloads/klinik-phase38-booking"
+publish = "."
 publishOrigin = "config"
 
   [build.environment]
