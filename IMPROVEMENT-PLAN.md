@@ -23,39 +23,38 @@
 | # | Tugasan | Kategori | Detail lengkap |
 |---|---|---|---|
 | 0.1 | **Fix `netlify.toml` publish path** | Bug | Sekarang `publish = "/Users/farhanbinzulkifli/Downloads/klinik-phase38-booking"` (path Mac) — ini **memusnahkan deploy Netlify**. Tukar ke `.` atau folder build sebenar. **SELESAIKAN DULU.** |
-| 0.2 | Sitemap bersih | SEO | `sitemap.xml` kini 59 URL — pastikan hanya URL live, buang entri yang redirect 301 (hair-loss→mens-health, fomema→servis, dll). SEO tak bocor. |
-| 0.3 | `robots.txt` + canonical | SEO | Sahkan robots.txt benarkan indexing semua service page; tambah `<link rel="canonical">` pada setiap page. |
+| 0.2 | Sitemap + canonical host | SEO | Sitemap ada 58 URL live; semua URL map ke fail. Sitemap dan `robots.txt` kini guna apex `klinikalfatihjohor.com`, selari dengan canonical dan redirect. |
+| 0.3 | `robots.txt` + canonical | SEO | Robots membenarkan crawl; semak canonical supaya setiap halaman indeks guna host dan URL yang sepadan. `og-home.html` ialah template capture noindex. |
 | 0.4 | Login asas Dash | Dash | Cek `admin.html` & booking pages untuk asas auth sebelum deploy awam. |
 
 **Output F0:** Deploy berjaya, sitemap bersih, canonical OK.
 
 ---
 
-### FASA 1 — Booking Funnel & Konversi (Minggu 1, ~2-3 hari)
-**Matlamat: tutup lubang funnel, tingkatkan kadar real-booking, walaupun layout kekal.**
+### FASA 1 — Contact Conversion (Minggu 1, ~1-2 hari)
+**Matlamat: jadikan call/WhatsApp sebagai tindakan utama; tiada automasi booking/backend. Layout kekal.**
 
 | # | Tugasan | Kategori | Detail lengkap |
 |---|---|---|---|
-| 1.1 | **Confirmation loop booking** | Funnel | Borang submit ke Supabase — pastikan ada (a) auto-email/WhatsApp ke klinik + patient bila submit, ATAU (b) redirect ke `appointment-review.html` dengan no. WhatsApp untuk pengesahan segera. Tanpa ini, tempahan senyap. |
-| 1.2 | Anti no-show | Funnel | Tambah notis 24 jam sebelum appointment (trigger/email/WhatsApp). No-show GP 15-25%; recover 1% = RM jana terus (+/- RM4,500/tahun pada 1,000 appt & RM45 avg). |
-| 1.3 | FAQ atas form | Conversion | Letak 3 soalan paling ditanya ATAS borang booking: (bayaran kad? panel mana diterima? terima Medicare/MADANI?). Tinggi conversion, tanpa ubah layout. |
-| 1.4 | Tracking `source` | Tracking | Tambah hidden field `source` pada form booking supaya tahu halaman mana bawa paling banyak tempahan. |
-| 1.5 | CTA jelas pada OH & panel | B2B | Halaman `occupational-health/` + 35 panel: tambah CTA "Hubungi untuk quotation" + email/WhatsApp dedicated (bukan borang je). |
+| 1.1 | CTA panggilan | Conversion | Audit page utama, service, panel dan OH: tambah/baiki `tel:` link pada CTA sedia ada sahaja. Pastikan nombor tepat ikut cawangan; jangan tambah CTA berulang. |
+| 1.2 | WhatsApp ikut cawangan | Conversion | Pastikan setiap CTA WhatsApp membawa ke nombor cawangan yang betul (Teratai vs Tropika), dengan mesej awal yang ringkas dan relevan. |
+| 1.3 | Contact consistency | Local SEO | Semak NAP (nama/alamat/telefon) pada halaman cawangan dan schema; banding dengan Google Business Profile rasmi sebelum ubah fakta. |
 
-**Output F1:** Setiap booking ada confirmation loop, no-show menurun, halaman sumber tempahan diketahui.
+**Nota skop:** Supabase, SQL, reminder automatik dan appointment workflow dikecualikan buat masa ini. Website conversion melalui call dan WhatsApp sahaja.
 
 ---
 
-### FASA 2 — Aduan, Review & Retention (Minggu 2, ~2 hari)
-**Matlamat: jadikan laman mesin maklum balas untuk perbaiki SOP klinik.**
+### FASA 2 — Local SEO & Visibility (Minggu 2, ~2-3 hari)
+**Matlamat: kuatkan signal lokasi dan topical relevance tanpa mengubah layout.**
 
 | # | Tugasan | Kategori | Detail lengkap |
 |---|---|---|---|
-| 2.1 | `appointment-review.html` jadi pusat aduan | Retention | Guna untuk (a) rating + ulasan Google (link terus ke Google review), (b) capture defect quality (queue time, harga, parking, doktor). Data = asas perbaiki SOP. |
-| 2.2 | SOP review WhatsApp automatik | Retention | Selepas appointment selesai → mesej auto 2-3 hari kemudian → link review. Jangan tanya setiap lawatan. |
-| 2.3 | Laporan berkala | Retention | Agregat aduan (bulanan) untuk operasi + improvement. Retention 5% naik = net income naik 25-95%. |
+| 2.1 | NAP + MedicalClinic schema | SEO | Pastikan setiap branch page ada alamat, nombor, jam operasi dan `MedicalClinic` JSON-LD yang konsisten dengan Google Business Profile. Jangan reka geo/alamat. |
+| 2.2 | Canonical, sitemap, redirects | SEO | Satu host canonical sahaja; sitemap hanya URL live yang boleh di-index; buang URL redirect/duplikat. |
+| 2.3 | Link dalaman ke service pages | SEO | Dari home, servis, artikel dan panel/OH, pautkan secara kontekstual ke halaman servis/cawangan yang relevan. Kekalkan komposisi/layout. |
+| 2.4 | Kandungan topical B2B/local | SEO | Kembangkan artikel sedia ada sekitar klinik Skudai/Kempas, panel klinik syarikat Johor dan occupational health; fact-check tuntutan kesihatan. |
 
-**Output F2:** Laluan review + aduan berfungsi, data kualiti mula masuk.
+**Output F2:** Signal local konsisten, halaman penting mudah ditemui crawler/pengunjung, dan topik tempatan/B2B lebih lengkap.
 
 ---
 
@@ -86,24 +85,25 @@
 
 ---
 
-## Keutamaan Eksekusi (susun dari mula)
+## Keutamaan Eksekusi (susun ikut SEO visibility)
 
-1. **F0.1 fix netlify.toml publish path** — deploy rosak, sifar kos. SEGERA.
-2. F1.1/F1.4 confirmation loop + tracking source — nilai funnel tertinggi.
-3. F2.1/F2.2 review + aduan — retention.
-4. F3.2/F3.3 schema + unique meta — SEO.
-5. F4 tracking berterusan.
+1. **Local NAP + MedicalClinic schema** — audit data sebenar setiap cawangan dan selaraskan dengan Google Business Profile.
+2. **Canonical/sitemap/redirect hygiene** — host apex kini konsisten; terus sahkan tiada URL redirect/duplikat.
+3. **Call/WhatsApp contact paths** — pastikan nombor tepat ikut cawangan pada halaman utama, service, panel dan OH.
+4. **Internal links + topical content** — kukuhkan service pages, panel korporat Johor dan occupational health.
+5. **Core Web Vitals** — baiki isu performance yang terukur; jangan minify atau ubah assets tanpa baseline.
 
 ---
 
-## Metrik Kejayaan (bukan page count — nilai sebenar)
+## Metrik Kejayaan (visibility, bukan page count)
 
-- ✅ Deploy berjaya (F0)
-- ✅ % tempahan dengan confirmation
-- ✅ No-show % menurun
-- ✅ Bilangan Google review / aduan diurus
-- ✅ Bilangan panel korporat signed
-- ✅ Local keyword ranking naik
+- ✅ Sitemap URL valid, canonical host seragam, tiada redirect sources
+- ✅ Google Search Console: impressions/clicks/CTR mengikut query dan landing page
+- ✅ Local keyword visibility untuk Skudai, Taman Teratai, Setia Tropika/Kempas
+- ✅ NAP/schema branch pages sepadan dengan Google Business Profile
+- ✅ Call/WhatsApp CTA tepat ke cawangan yang dimaksudkan
+- ✅ Organic visits/clicks ke panel korporat dan occupational-health pages
+
 
 ---
 
