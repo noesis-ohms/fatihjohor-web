@@ -14,6 +14,8 @@
   const startInput = document.getElementById('booking-starts-at');
   const blockInput = document.getElementById('booking-block-id');
   const confirmation = document.getElementById('booking-confirmation');
+  const sourceInput = document.getElementById('booking-source');
+  try { if (sourceInput) sourceInput.value = (meta('phase57-booking-source') || location.pathname); } catch (e) {}
   let bootstrap = { branches: [], services: [], doctors: [], mappings: [] };
 
   const headers = () => ({ 'Content-Type':'application/json', 'apikey':key });
@@ -91,6 +93,7 @@
       availability_block_id:fd.get('availability_block_id'), starts_at:fd.get('starts_at'),
       patient_name:fd.get('patient_name'), phone:fd.get('phone'), email:fd.get('email') || null,
       notes:fd.get('notes') || null,
+      source:fd.get('source') || location.pathname,
       consent:fd.get('consent')==='1', turnstile_token:window.phase57TurnstileToken || null,
     };
     const button=document.getElementById('booking-submit'); button.disabled=true; setAlert('Menghantar permintaan temujanji…');
@@ -104,8 +107,12 @@
       const status=document.createElement('p'); const statusLabel=document.createElement('strong'); statusLabel.textContent='Status: '; status.append(statusLabel,document.createTextNode('Pending Confirmation'));
       const reference=document.createElement('p'); reference.textContent=`Rujukan: ${data.reference || '-'}`;
       const appointment=document.createElement('p'); appointment.textContent=data.label || payload.starts_at || '';
-      const message=document.createElement('p'); message.textContent=data.message || 'Team klinik perlu mengesahkan slot ini dahulu. Jika anda memasukkan email, keputusan pengesahan akan dihantar selepas semakan staff.';
-      confirmation.append(title,status,reference,appointment,message);
+      const message=document.createElement('p'); message.textContent=data.message || 'Team klinik perlu mengesahkan slot ini dahulu. Untuk pengesahan segera, sila WhatsApp klinik berkenaan (nombor di bawah) dengan rujukan tempahan anda. Jika anda memasukkan email, keputusan pengesahan juga akan dihantar selepas semakan staff.';
+      const waWrap=document.createElement('p'); waWrap.style.margin='10px 0 0';
+      const waA=document.createElement('a'); waA.href='https://wa.me/60126009784'; waA.target='_blank'; waA.rel='noopener'; waA.className='btn btn-primary'; waA.textContent='WhatsApp Klinik Skudai — Pengesahan Segera';
+      const waA2=document.createElement('a'); waA2.href='https://wa.me/60175204224'; waA2.target='_blank'; waA2.rel='noopener'; waA2.className='btn'; waA2.style.marginLeft='8px'; waA2.textContent='WhatsApp Klinik Setia Tropika';
+      waWrap.append(waA, waA2);
+      confirmation.append(title,status,reference,appointment,message,waWrap);
       confirmation.scrollIntoView({behavior:'smooth',block:'center'});
       form.reset(); startInput.value=''; blockInput.value='';
     } catch(error) { setAlert(error.message || 'Tempahan tidak dapat dibuat. Please contact the clinic.', 'error'); }
