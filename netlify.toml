@@ -617,6 +617,12 @@ force = false
   [redirects.headers]
 
 [[redirects]]
+from = "/panel/tnb.html.html"
+to = "/panel/tnb.html"
+status = 301
+force = false
+
+[[redirects]]
 from = "/panel/tnb"
 to = "/panel/tnb.html"
 status = 301
