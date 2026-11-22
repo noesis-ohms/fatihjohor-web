@@ -44,7 +44,7 @@ force = true
 from = "/index.html"
 to = "/"
 status = 301
-force = false
+force = true
 
   [redirects.query]
 
