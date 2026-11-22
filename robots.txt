@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://www.klinikalfatihjohor.com/sitemap.xml
+Sitemap: https://klinikalfatihjohor.com/sitemap.xml
