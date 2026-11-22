@@ -63,7 +63,7 @@
       redFlagBox.innerHTML = '';
     }
     const message = encodeURIComponent(summaryText(data));
-    teratai.href = `https://wa.me/60126009784?text=${message}`;
+    teratai.href = `https://wa.me/60126009137?text=${message}`;
     tropika.href = `https://wa.me/60175204224?text=${message}`;
     results.hidden = false;
     results.scrollIntoView({behavior:'smooth', block:'start'});

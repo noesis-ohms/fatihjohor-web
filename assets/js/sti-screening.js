@@ -63,8 +63,8 @@
       : '';
 
     const actions = level === 'urgent'
-      ? '<a class="p8-btn p8-btn-primary" href="https://wa.me/60126009784">WhatsApp klinik sekarang</a><a class="p8-btn p8-btn-secondary" href="/booking.html">Tempah konsultasi</a>'
-      : '<a class="p8-btn p8-btn-primary" href="/booking.html">Tempah konsultasi STI/STD</a><a class="p8-btn p8-btn-secondary" href="https://wa.me/60126009784">WhatsApp secara sulit</a>';
+      ? '<a class="p8-btn p8-btn-primary" href="https://wa.me/60126009137">WhatsApp klinik sekarang</a><a class="p8-btn p8-btn-secondary" href="/booking.html">Tempah konsultasi</a>'
+      : '<a class="p8-btn p8-btn-primary" href="/booking.html">Tempah konsultasi STI/STD</a><a class="p8-btn p8-btn-secondary" href="https://wa.me/60126009137">WhatsApp secara sulit</a>';
 
     result.className = `p15-screening-result p15-result-${level}`;
     result.innerHTML = `<span class="p8-eyebrow">Cadangan awal</span><h3>${title}</h3><p>${text}</p>${siteAdvice}<div class="p15-result-actions">${actions}</div><small>Saringan ini bukan diagnosis dan tidak menentukan bahawa anda mempunyai atau tidak mempunyai STI.</small>`;

@@ -7,7 +7,7 @@
       const form=this.closest('form');
       if(!form)return;
       e.preventDefault();
-      const phone=this.dataset.phone||'60126009784';
+      const phone=this.dataset.phone||'60126009137';
       const topic=form.querySelector('[name="topic"]')?.value||'Pertanyaan website';
       const name=form.querySelector('[name="name"]')?.value||'';
       const note=form.querySelector('[name="note"]')?.value||'';
@@ -65,7 +65,7 @@
       if(wa){
         const urgentMsg = bmi>=27.5 ? ' Saya ingin berbincang tentang faktor risiko dan pilihan pengurusan yang sesuai.' : '';
         const msg=`Assalamualaikum Klinik Al-Fatih Johor. Saya nak semak program weight loss. Berat: ${weight}kg, tinggi: ${heightCm}cm, BMI: ${bmi.toFixed(1)} (${cat}).${urgentMsg}`;
-        wa.href=`https://wa.me/60126009784?text=${encodeURIComponent(msg)}`;
+        wa.href=`https://wa.me/60126009137?text=${encodeURIComponent(msg)}`;
       }
     });
   }
@@ -138,7 +138,7 @@
       }
       if(wa){
         const msg=`Assalamualaikum Klinik Al-Fatih Johor. Saya nak bincang keputusan DASS-21. Depression: ${scaled.depression} (${labels.depression}), Anxiety: ${scaled.anxiety} (${labels.anxiety}), Stress: ${scaled.stress} (${labels.stress}). ${urgent?'Saya ingin aturkan penilaian lanjut untuk keputusan severe/extremely severe.':abnormal?'Saya ingin bincang keputusan saringan yang abnormal.':''}`;
-        wa.href=`https://wa.me/60126009784?text=${encodeURIComponent(msg)}`;
+        wa.href=`https://wa.me/60126009137?text=${encodeURIComponent(msg)}`;
       }
     });
     dassForm.addEventListener('reset',function(){
@@ -149,7 +149,7 @@
       }
       const wa=this.querySelector('[data-dass-whatsapp]');
       if(wa){
-        wa.href='https://wa.me/60126009784?text=Assalamualaikum%20Klinik%20Al-Fatih%20Johor%2C%20saya%20nak%20konsultasi%20mental%20health';
+        wa.href='https://wa.me/60126009137?text=Assalamualaikum%20Klinik%20Al-Fatih%20Johor%2C%20saya%20nak%20konsultasi%20mental%20health';
       }
     });
   }
@@ -165,7 +165,7 @@
       const staff=form.querySelector('[name="staff"]')?.value||'';
       const need=form.querySelector('[name="need"]')?.value||'Panel klinik staf';
       const msg=`Assalamualaikum Klinik Al-Fatih Johor. Syarikat kami nak apply panel klinik.\n\nNama syarikat: ${company}\nPIC/HR: ${pic}\nAnggaran staf: ${staff}\nKeperluan utama: ${need}\n\nMohon team klinik hubungi kami untuk proses seterusnya.`;
-      window.open(`https://wa.me/60126009784?text=${encodeURIComponent(msg)}`,'_blank','noopener');
+      window.open(`https://wa.me/60126009137?text=${encodeURIComponent(msg)}`,'_blank','noopener');
     });
   });
 

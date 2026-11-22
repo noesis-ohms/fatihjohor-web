@@ -17,7 +17,7 @@
   dock.innerHTML = `
     <a class="book" href="/booking.html">Book Appointment</a>
     <a class="corporate" href="/corporate.html">Corporate / OHD</a>
-    <a class="whatsapp" href="https://wa.me/60126009784?text=Assalamualaikum%20Klinik%20Al-Fatih%20Johor" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="whatsapp" href="https://wa.me/60126009137?text=Assalamualaikum%20Klinik%20Al-Fatih%20Johor" target="_blank" rel="noopener">WhatsApp</a>
     <a class="locations" href="/cawangan-klinik.html">Locations</a>`;
   document.body.appendChild(dock);
 

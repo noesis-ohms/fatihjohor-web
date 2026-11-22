@@ -109,7 +109,7 @@
       const appointment=document.createElement('p'); appointment.textContent=data.label || payload.starts_at || '';
       const message=document.createElement('p'); message.textContent=data.message || 'Team klinik perlu mengesahkan slot ini dahulu. Untuk pengesahan segera, sila WhatsApp klinik berkenaan (nombor di bawah) dengan rujukan tempahan anda. Jika anda memasukkan email, keputusan pengesahan juga akan dihantar selepas semakan staff.';
       const waWrap=document.createElement('p'); waWrap.style.margin='10px 0 0';
-      const waA=document.createElement('a'); waA.href='https://wa.me/60126009784'; waA.target='_blank'; waA.rel='noopener'; waA.className='btn btn-primary'; waA.textContent='WhatsApp Klinik Skudai — Pengesahan Segera';
+      const waA=document.createElement('a'); waA.href='https://wa.me/60126009137'; waA.target='_blank'; waA.rel='noopener'; waA.className='btn btn-primary'; waA.textContent='WhatsApp Klinik Skudai — Pengesahan Segera';
       const waA2=document.createElement('a'); waA2.href='https://wa.me/60175204224'; waA2.target='_blank'; waA2.rel='noopener'; waA2.className='btn'; waA2.style.marginLeft='8px'; waA2.textContent='WhatsApp Klinik Setia Tropika';
       waWrap.append(waA, waA2);
       confirmation.append(title,status,reference,appointment,message,waWrap);

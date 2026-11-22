@@ -4,7 +4,7 @@ const ENDPOINT = 'https://ufgelclsicoomxiavozp.supabase.co/functions/v1/branch-g
 const BRANCHES = {
   teratai: {
     selectors: ['#teratai', '[data-branch="teratai"]', '[data-branch-key="teratai"]'],
-    cues: ['klinik teratai al-fatih', '012-600 9784', 'jalan enau 15'],
+    cues: ['klinik teratai al-fatih', '012-600 9137', 'jalan enau 15'],
   },
   tropika: {
     selectors: ['#tropika', '[data-branch="tropika"]', '[data-branch-key="tropika"]'],
