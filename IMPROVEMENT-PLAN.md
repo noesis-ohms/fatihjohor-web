@@ -23,7 +23,7 @@
 | # | Tugasan | Kategori | Detail lengkap |
 |---|---|---|---|
 | 0.1 | **Fix `netlify.toml` publish path** | Bug | Sekarang `publish = "/Users/farhanbinzulkifli/Downloads/klinik-phase38-booking"` (path Mac) — ini **memusnahkan deploy Netlify**. Tukar ke `.` atau folder build sebenar. **SELESAIKAN DULU.** |
-| 0.2 | Sitemap + canonical host | SEO | Sitemap ada 59 URL live (termasuk halaman TNB yang telah dibetulkan); semua URL map ke fail. Sitemap dan `robots.txt` guna apex `klinikalfatihjohor.com`, selari dengan canonical dan redirect. |
+| 0.2 | Sitemap + canonical host | SEO | Sitemap ada 67 URL canonical dan indexable (termasuk TNB serta 8 halaman live yang sebelum ini tertinggal); semua dipadankan ke fail. Sitemap dan `robots.txt` guna apex `klinikalfatihjohor.com`. |
 | 0.3 | `robots.txt` + canonical | SEO | Robots membenarkan crawl; semak canonical supaya setiap halaman indeks guna host dan URL yang sepadan. `og-home.html` ialah template capture noindex. |
 | 0.4 | Login asas Dash | Dash | Cek `admin.html` & booking pages untuk asas auth sebelum deploy awam. |
 
