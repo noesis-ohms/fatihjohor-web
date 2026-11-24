@@ -10,14 +10,14 @@
     "Assalamualaikum! Saya Kak Liza, pembantu AI Klinik Al-Fatih. Tanya Kak Liza tentang servis, waktu operasi, panel atau temujanji ya.\n\nHi! I'm Kak Liza. Ask me anything about our clinic.";
 
   const css = `
-  .afc-btn{position:fixed;left:18px;bottom:18px;z-index:70;display:flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:13px 17px;background:linear-gradient(135deg,#0759e8,#0000ff);color:#fff;font:800 15px/1 Inter,ui-sans-serif,system-ui,sans-serif;box-shadow:0 14px 34px rgba(0,0,255,.28);cursor:pointer}
+  .afc-btn{position:fixed;right:18px;bottom:18px;z-index:70;display:flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:13px 17px;background:linear-gradient(135deg,#0759e8,#0000ff);color:#fff;font:800 15px/1 Inter,ui-sans-serif,system-ui,sans-serif;box-shadow:0 14px 34px rgba(0,0,255,.28);cursor:pointer}
   .afc-btn{padding:7px 18px 7px 7px}.afc-av{width:38px;height:38px;border-radius:50%;border:2px solid #fff;flex:none;background:#fff}
   .afc-head .afc-av{width:44px;height:44px}
   .afc-who{display:flex;align-items:center;gap:10px}
   .afc-row{display:flex;align-items:flex-end;gap:8px;align-self:flex-start;max-width:92%}
   .afc-row .afc-av{width:28px;height:28px;border:1px solid #dbe7f5}
   .afc-row .afc-m{max-width:none}
-  .afc-panel{position:fixed;left:18px;bottom:18px;z-index:310;width:min(380px,calc(100vw - 24px));height:min(560px,calc(100dvh - 36px));display:none;flex-direction:column;background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(10,30,50,.28);overflow:hidden;font:15px/1.5 Inter,ui-sans-serif,system-ui,sans-serif;color:#071d52;border:1px solid #dbe7f5}
+  .afc-panel{position:fixed;right:18px;bottom:18px;z-index:310;width:min(380px,calc(100vw - 24px));height:min(560px,calc(100dvh - 36px));display:none;flex-direction:column;background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(10,30,50,.28);overflow:hidden;font:15px/1.5 Inter,ui-sans-serif,system-ui,sans-serif;color:#071d52;border:1px solid #dbe7f5}
   .afc-panel.open{display:flex}
   .afc-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:linear-gradient(135deg,#04165f,#0b3b89);color:#fff;border-bottom:3px solid #00c9ff}
   .afc-head b{font-size:15px}.afc-head small{display:block;opacity:.8;font-size:12px}
@@ -32,7 +32,7 @@
   .afc-send{border:0;border-radius:12px;padding:0 16px;background:#0000ff;color:#fff;font-weight:800;font-family:inherit;cursor:pointer}
   .afc-send:disabled{opacity:.5}
   .afc-note{font-size:11px;color:#62728d;text-align:center;padding:0 10px 8px;background:#fff}
-  @media (max-width:760px){.afc-btn{bottom:86px;left:12px}.afc-panel{left:12px;bottom:12px}}
+  @media (max-width:760px){.afc-btn{bottom:86px;right:12px}.afc-panel{right:12px;bottom:12px}}
   `;
   const style = document.createElement("style");
   style.textContent = css;
