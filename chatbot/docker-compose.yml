@@ -16,6 +16,7 @@ services:
         exec node server.mjs
     environment:
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - ANTHROPIC_WORKSPACE_ID=${ANTHROPIC_WORKSPACE_ID:-}
       - CODE_BRANCH=${CODE_BRANCH:-main}
       - CHAT_MODEL=${CHAT_MODEL:-claude-haiku-5-5}
       - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-https://klinikalfatihjohor.com,https://www.klinikalfatihjohor.com}

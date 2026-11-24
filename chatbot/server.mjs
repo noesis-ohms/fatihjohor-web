@@ -110,7 +110,12 @@ async function handleChat(req, res) {
 
   let sentText = false;
   try {
-    client ??= new Anthropic(); // reads ANTHROPIC_API_KEY
+    // Reads ANTHROPIC_API_KEY. A key not scoped to a workspace also needs ANTHROPIC_WORKSPACE_ID.
+    client ??= new Anthropic(
+      process.env.ANTHROPIC_WORKSPACE_ID
+        ? { defaultHeaders: { "anthropic-workspace-id": process.env.ANTHROPIC_WORKSPACE_ID } }
+        : {},
+    );
     const stream = client.messages.stream({
       model: MODEL,
       max_tokens: 2000,
