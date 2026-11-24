@@ -5,12 +5,18 @@
 
   const API = "https://srv2175084.hstgr.cloud/chat";
   const STORE = "alfatih-chat-v1";
+  const AVATAR = "/assets/img/kak-liza.svg";
   const GREETING =
     "Assalamualaikum! Saya Kak Liza, pembantu AI Klinik Al-Fatih. Tanya Kak Liza tentang servis, waktu operasi, panel atau temujanji ya.\n\nHi! I'm Kak Liza. Ask me anything about our clinic.";
 
   const css = `
   .afc-btn{position:fixed;left:18px;bottom:18px;z-index:70;display:flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:13px 17px;background:linear-gradient(135deg,#0759e8,#0000ff);color:#fff;font:800 15px/1 Inter,ui-sans-serif,system-ui,sans-serif;box-shadow:0 14px 34px rgba(0,0,255,.28);cursor:pointer}
-  .afc-btn svg{width:20px;height:20px;fill:currentColor}
+  .afc-btn{padding:7px 18px 7px 7px}.afc-av{width:38px;height:38px;border-radius:50%;border:2px solid #fff;flex:none;background:#fff}
+  .afc-head .afc-av{width:44px;height:44px}
+  .afc-who{display:flex;align-items:center;gap:10px}
+  .afc-row{display:flex;align-items:flex-end;gap:8px;align-self:flex-start;max-width:92%}
+  .afc-row .afc-av{width:28px;height:28px;border:1px solid #dbe7f5}
+  .afc-row .afc-m{max-width:none}
   .afc-panel{position:fixed;left:18px;bottom:18px;z-index:310;width:min(380px,calc(100vw - 24px));height:min(560px,calc(100dvh - 36px));display:none;flex-direction:column;background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(10,30,50,.28);overflow:hidden;font:15px/1.5 Inter,ui-sans-serif,system-ui,sans-serif;color:#071d52;border:1px solid #dbe7f5}
   .afc-panel.open{display:flex}
   .afc-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:linear-gradient(135deg,#04165f,#0b3b89);color:#fff;border-bottom:3px solid #00c9ff}
@@ -26,7 +32,7 @@
   .afc-send{border:0;border-radius:12px;padding:0 16px;background:#0000ff;color:#fff;font-weight:800;font-family:inherit;cursor:pointer}
   .afc-send:disabled{opacity:.5}
   .afc-note{font-size:11px;color:#62728d;text-align:center;padding:0 10px 8px;background:#fff}
-  @media (max-width:760px){.afc-btn{bottom:86px;left:12px;padding:12px 15px}.afc-panel{left:12px;bottom:12px}}
+  @media (max-width:760px){.afc-btn{bottom:86px;left:12px}.afc-panel{left:12px;bottom:12px}}
   `;
   const style = document.createElement("style");
   style.textContent = css;
@@ -36,14 +42,14 @@
   btn.className = "afc-btn";
   btn.type = "button";
   btn.setAttribute("aria-label", "Tanya Kak Liza, pembantu AI klinik");
-  btn.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C6.5 3 2 6.9 2 11.7c0 2.4 1.1 4.6 3 6.2L4 22l4.6-2.3c1.1.3 2.2.5 3.4.5 5.5 0 10-3.9 10-8.7S17.5 3 12 3Z"/></svg>Tanya Kak Liza';
+  btn.innerHTML = '<img src="' + AVATAR + '" alt="" class="afc-av">Tanya Kak Liza';
 
   const panel = document.createElement("div");
   panel.className = "afc-panel";
   panel.setAttribute("role", "dialog");
   panel.setAttribute("aria-label", "Tanya Kak Liza");
   panel.innerHTML = `
-    <div class="afc-head"><div><b>Tanya Kak Liza</b><small>Pembantu AI Klinik Al-Fatih · balas serta-merta</small></div><button class="afc-x" type="button" aria-label="Tutup">×</button></div>
+    <div class="afc-head"><div class="afc-who"><img src="${AVATAR}" alt="" class="afc-av"><div><b>Tanya Kak Liza</b><small>Pembantu AI Klinik Al-Fatih</small></div></div><button class="afc-x" type="button" aria-label="Tutup">×</button></div>
     <div class="afc-log" aria-live="polite"></div>
     <form class="afc-form"><textarea class="afc-in" rows="1" placeholder="Taip soalan anda…" aria-label="Mesej"></textarea><button class="afc-send" type="submit">Hantar</button></form>
     <div class="afc-note">Jawapan AI mungkin tidak tepat. Untuk kecemasan, hubungi 999.</div>`;
@@ -75,7 +81,14 @@
     const el = document.createElement("div");
     el.className = "afc-m " + (role === "user" ? "afc-me" : "afc-bot");
     linkify(el, text);
-    log.appendChild(el);
+    if (role === "user") log.appendChild(el);
+    else {
+      const row = document.createElement("div");
+      row.className = "afc-row";
+      row.innerHTML = '<img src="' + AVATAR + '" alt="" class="afc-av">';
+      row.appendChild(el);
+      log.appendChild(row);
+    }
     log.scrollTop = log.scrollHeight;
     return el;
   };

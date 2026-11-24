@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Kak Liza">
+  <defs>
+    <linearGradient id="kl-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#00c9ff"/>
+      <stop offset="1" stop-color="#0759e8"/>
+    </linearGradient>
+    <linearGradient id="kl-hijab" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b3b89"/>
+      <stop offset="1" stop-color="#04165f"/>
+    </linearGradient>
+    <clipPath id="kl-clip"><circle cx="60" cy="60" r="60"/></clipPath>
+  </defs>
+  <circle cx="60" cy="60" r="60" fill="url(#kl-bg)"/>
+  <g clip-path="url(#kl-clip)">
+    <!-- shoulders: white clinic uniform -->
+    <path d="M14 124c2-24 20-36 46-36s44 12 46 36z" fill="#ffffff"/>
+    <!-- hijab drape -->
+    <path d="M60 18c-22 0-36 16-36 38 0 14 5 26 12 34 7 8 15 12 24 12s17-4 24-12c7-8 12-20 12-34 0-22-14-38-36-38z" fill="url(#kl-hijab)"/>
+    <path d="M30 86c8 14 18 20 30 20s22-6 30-20l6 14c-10 10-22 14-36 14s-26-4-36-14z" fill="#04165f"/>
+    <!-- face -->
+    <ellipse cx="60" cy="58" rx="22" ry="25" fill="#f3c9a4"/>
+    <!-- hijab inner band -->
+    <path d="M37 50c3-14 12-21 23-21s20 7 23 21c-6-7-14-10-23-10s-17 3-23 10z" fill="#00c9ff"/>
+    <!-- eyes -->
+    <path d="M47 58q4-4 8 0" stroke="#13263a" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <path d="M65 58q4-4 8 0" stroke="#13263a" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <!-- cheeks -->
+    <circle cx="46" cy="66" r="3.6" fill="#f28c8c" opacity=".45"/>
+    <circle cx="74" cy="66" r="3.6" fill="#f28c8c" opacity=".45"/>
+    <!-- smile -->
+    <path d="M52 70q8 7 16 0" stroke="#b5473f" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    <!-- name badge with medical cross -->
+    <rect x="70" y="100" width="18" height="12" rx="3" fill="#0000ff"/>
+    <path d="M79 102.5v7M75.5 106h7" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+</svg>
