@@ -44,6 +44,14 @@
   .afc-typing i:nth-child(2){animation-delay:.15s}.afc-typing i:nth-child(3){animation-delay:.3s}
   @keyframes afc-b{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
   html.afc-lock,html.afc-lock body{overflow:hidden!important}
+  .afc-backdrop{display:none}
+  @media (max-width:760px){
+    /* White sheet behind the chat so the page never shows through around the keyboard */
+    html.afc-lock .afc-backdrop{display:block;position:fixed;left:0;right:0;top:-50vh;height:200vh;background:#f6faff;z-index:305}
+    .afc-panel.afc-kb .afc-note{display:none}
+    .afc-panel.afc-kb .afc-head{padding-top:8px;padding-bottom:8px}
+    .afc-panel.afc-kb .afc-head .afc-av{width:36px;height:36px}
+  }
   @media (max-width:760px){
     /* Launcher: compact round avatar above the bottom bar */
     .afc-btn{right:12px;bottom:calc(84px + env(safe-area-inset-bottom));padding:4px;border-radius:50%;font-size:0;gap:0;box-shadow:0 10px 26px rgba(0,0,255,.35)}
@@ -81,7 +89,9 @@
     <form class="afc-form"><textarea class="afc-in" rows="1" placeholder="Taip soalan anda…" aria-label="Mesej"></textarea><button class="afc-send" type="submit" aria-label="Hantar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.4 20.4 21 12 3.4 3.6 3.4 10.2 15 12 3.4 13.8z"/></svg></button></form>
     <div class="afc-note">Kak Liza hanya pembantu maya klinik. Untuk rawatan, anda masih perlu berjumpa dengan profesional.</div>`;
 
-  document.body.append(btn, panel);
+  const backdrop = document.createElement("div");
+  backdrop.className = "afc-backdrop";
+  document.body.append(btn, backdrop, panel);
   const log = panel.querySelector(".afc-log");
   const form = panel.querySelector(".afc-form");
   const input = panel.querySelector(".afc-in");
@@ -181,22 +191,48 @@
   // Phone: fit the panel to the visible area so the keyboard never covers the input.
   const mobile = () => window.matchMedia("(max-width:760px)").matches;
   const vv = window.visualViewport;
+  let fullH = 0;
   const fit = () => {
     if (!panel.classList.contains("open") || !mobile() || !vv) return;
-    panel.style.setProperty("--afc-vh", vv.height + "px");
-    panel.style.top = vv.offsetTop + "px";
+    panel.style.setProperty("--afc-vh", Math.round(vv.height) + "px");
+    panel.style.top = Math.round(vv.offsetTop) + "px";
+    // Keyboard is up when the visible area is much shorter than the screen.
+    fullH = Math.max(fullH, vv.height, window.innerHeight);
+    panel.classList.toggle("afc-kb", vv.height < fullH * 0.75);
     log.scrollTop = log.scrollHeight;
   };
+  // iOS animates the keyboard and does not always fire a final resize: re-check for a moment.
+  const settle = () => {
+    const end = Date.now() + 1000;
+    const tick = () => { fit(); if (Date.now() < end) requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  };
   if (vv) { vv.addEventListener("resize", fit); vv.addEventListener("scroll", fit); }
+  input.addEventListener("focus", settle);
+  input.addEventListener("blur", settle);
 
   const grow = () => { input.style.height = "auto"; input.style.height = Math.min(input.scrollHeight, 110) + "px"; };
   input.addEventListener("input", grow);
+
+  let savedY = 0;
+  const lockScroll = () => {
+    if (document.documentElement.classList.contains("afc-lock")) return;
+    savedY = window.scrollY;
+    document.documentElement.classList.add("afc-lock");
+    Object.assign(document.body.style, { position: "fixed", top: -savedY + "px", left: "0", right: "0", width: "100%" });
+  };
+  const unlockScroll = () => {
+    if (!document.documentElement.classList.contains("afc-lock")) return;
+    document.documentElement.classList.remove("afc-lock");
+    Object.assign(document.body.style, { position: "", top: "", left: "", right: "", width: "" });
+    window.scrollTo(0, savedY);
+  };
 
   let pushed = false;
   const show = () => {
     panel.classList.add("open"); btn.style.display = "none"; render();
     if (mobile()) {
-      document.documentElement.classList.add("afc-lock");
+      lockScroll();
       // Phone back button closes the chat instead of leaving the page.
       try { window.history.pushState({ afc: 1 }, ""); pushed = true; } catch {}
     }
@@ -206,8 +242,8 @@
   const open = () => { show(); if (!mobile()) input.focus(); };
   const close = (fromBack) => {
     panel.classList.remove("open"); btn.style.display = "";
-    document.documentElement.classList.remove("afc-lock");
-    panel.style.removeProperty("--afc-vh"); panel.style.top = "";
+    unlockScroll();
+    panel.style.removeProperty("--afc-vh"); panel.style.top = ""; panel.classList.remove("afc-kb");
     if (pushed && fromBack !== true) { pushed = false; try { window.history.back(); } catch {} }
     pushed = false;
   };
