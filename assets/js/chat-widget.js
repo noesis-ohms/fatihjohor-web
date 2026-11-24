@@ -52,7 +52,7 @@
     <div class="afc-head"><div class="afc-who"><img src="${AVATAR}" alt="" class="afc-av"><div><b>Tanya Kak Liza</b><small>Pembantu AI Klinik Al-Fatih</small></div></div><button class="afc-x" type="button" aria-label="Tutup">×</button></div>
     <div class="afc-log" aria-live="polite"></div>
     <form class="afc-form"><textarea class="afc-in" rows="1" placeholder="Taip soalan anda…" aria-label="Mesej"></textarea><button class="afc-send" type="submit">Hantar</button></form>
-    <div class="afc-note">Jawapan AI mungkin tidak tepat. Untuk kecemasan, hubungi 999.</div>`;
+    <div class="afc-note">Kak Liza hanya pembantu maya klinik. Untuk rawatan, anda masih perlu berjumpa dengan profesional.</div>`;
 
   document.body.append(btn, panel);
   const log = panel.querySelector(".afc-log");
