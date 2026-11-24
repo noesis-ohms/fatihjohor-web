@@ -1,0 +1,12 @@
+{
+  "name": "fatihjohor-chatbot",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "knowledge": "node build-knowledge.mjs .. knowledge.txt"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.14.0"
+  }
+}

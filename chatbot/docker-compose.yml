@@ -1,0 +1,17 @@
+# Deployed on the Hostinger VPS (Docker Manager). Traefik there handles HTTPS.
+services:
+  chatbot:
+    build:
+      context: https://github.com/noesis-ohms/fatihjohor-web.git#main
+      dockerfile: chatbot/Dockerfile
+    restart: unless-stopped
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - CHAT_MODEL=${CHAT_MODEL:-claude-opus-5-5}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-https://klinikalfatihjohor.com,https://www.klinikalfatihjohor.com}
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.chatbot.rule=Host(`srv2175084.hstgr.cloud`)
+      - traefik.http.routers.chatbot.entrypoints=websecure
+      - traefik.http.routers.chatbot.tls.certresolver=letsencrypt
+      - traefik.http.services.chatbot.loadbalancer.server.port=8080
