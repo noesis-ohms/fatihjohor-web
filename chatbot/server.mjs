@@ -5,7 +5,7 @@ import fs from "node:fs";
 import Anthropic from "@anthropic-ai/sdk";
 
 const PORT = Number(process.env.PORT || 8080);
-const MODEL = process.env.CHAT_MODEL || "claude-opus-5-5";
+const MODEL = process.env.CHAT_MODEL || "claude-haiku-5-5";
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS ||
   "https://klinikalfatihjohor.com,https://www.klinikalfatihjohor.com")
   .split(",").map((s) => s.trim()).filter(Boolean);
@@ -111,11 +111,9 @@ async function handleChat(req, res) {
   let sentText = false;
   try {
     client ??= new Anthropic(); // reads ANTHROPIC_API_KEY
-    const stream = client.beta.messages.stream({
+    const stream = client.messages.stream({
       model: MODEL,
       max_tokens: 2000,
-      betas: ["server-side-fallback-2026-07-01"],
-      fallbacks: "default",
       output_config: { effort: "low" },
       system: [
         { type: "text", text: INSTRUCTIONS + knowledge, cache_control: { type: "ephemeral" } },
