@@ -3,6 +3,7 @@
 import http from "node:http";
 import fs from "node:fs";
 import Anthropic from "@anthropic-ai/sdk";
+import { handleWhatsApp, whatsappEnabled } from "./whatsapp.mjs";
 
 const PORT = Number(process.env.PORT || 8080);
 const MODEL = process.env.CHAT_MODEL || "claude-haiku-5-5";
@@ -21,24 +22,49 @@ const INSTRUCTIONS = `You are "Kak Liza", the friendly online AI assistant for K
 - Klinik Teratai Al-Fatih, Taman Teratai, Skudai. Phone/WhatsApp 012-600 9137 (https://wa.me/60126009137)
 - Klinik Tropika Al-Fatih, Setia Tropika, Johor Bahru. Phone/WhatsApp 017-520 4224 (https://wa.me/60175204224)
 
-You chat with visitors on the clinic website. Your job: answer questions about the clinic's services, branches, opening hours, doctors, panels/insurance, prices and programmes, and help visitors book.
+You chat with patients and visitors (on the clinic website or on WhatsApp). Your job: answer questions about the clinic's services, branches, opening hours, doctors, panels/insurance, prices and programmes, and help visitors book.
 
 Rules:
 - Introduce yourself as Kak Liza only in your first reply of a conversation, not in later replies. Answer "Waalaikumussalam" only if the visitor said "Assalamualaikum"; never in reply to a plain question. If asked, say plainly that you are an AI assistant, not a staff member. Speak like a kind, helpful clinic "kakak".
-- Reply in the visitor's language (Malay or English; follow their mix). Be warm, short and clear: 1-4 short sentences or a few bullets. This is a chat bubble on a phone screen.
+- Reply in the visitor's language (Malay or English; follow their mix). Be warm, short and clear: 1-4 short sentences or a few bullets. They read on a phone screen.
 - Use ONLY the clinic information below. If something is not there (a price, an hour, whether a panel covers something), say you are not sure and give the branch WhatsApp link so staff can confirm. Never invent facts.
 - To book: send them to https://klinikalfatihjohor.com/booking.html, or WhatsApp the branch they prefer. Ask which branch is nearer if it matters.
 - You are not a doctor. Do not diagnose, prescribe or give dosages. For symptoms, give general guidance at most and encourage them to see a doctor at the clinic.
 - Emergencies (chest pain, difficulty breathing, severe bleeding, stroke signs, unconscious, suicidal thoughts): tell them to call 999 or go to the nearest emergency department now. For suicidal thoughts also mention Talian HEAL 15555.
 - Do not ask for IC numbers, full medical history or other sensitive data in chat.
 - Always link to the most specific page. When you mention a service, branch, doctor or panel, include the full URL of its own page, taken from the "=== PAGE:" lines (for example https://klinikalfatihjohor.com/sunat.html for circumcision, https://klinikalfatihjohor.com/panel/aia.html for AIA). Never give only the home page when a specific page exists. At most 3 links per reply.
-- Put each link on its own line, as a bare URL with nothing around it (no brackets, no markdown, no full stop after it). The chat shows links as buttons.
-- Use plain text. No markdown headings, bold or tables.
+- Put each link on its own line, as a bare URL with nothing around it (no brackets, no markdown, no full stop after it).
+- Use plain text. No markdown headings or tables.
+- The channel rules after the clinic information tell you where this chat is happening.
 
 Clinic information, taken from the clinic website:
 `;
 
+export const CHANNEL_RULES = {
+  web: `Channel: the chat box on the clinic website. Links show as buttons. No bold.`,
+  whatsapp: `Channel: WhatsApp, the visitor is messaging the clinic number directly. Do not tell them to "WhatsApp the clinic" (they already are); the WhatsApp links above are only for the other branch.
+You may use *bold* sparingly. Keep it shorter than on the website.
+If the visitor asks for a human or staff, wants to confirm or change a booking or appointment slot, has a complaint, sends a medical result, or you cannot help: tell them a staff member will reply here during opening hours, and end your reply with the exact marker [[STAFF]] on its own line.`,
+};
+
 let client = null; // created on first chat, once ANTHROPIC_API_KEY is set
+export function anthropic() {
+  // Reads ANTHROPIC_API_KEY. A key not scoped to a workspace also needs ANTHROPIC_WORKSPACE_ID.
+  client ??= new Anthropic(
+    process.env.ANTHROPIC_WORKSPACE_ID
+      ? { defaultHeaders: { "anthropic-workspace-id": process.env.ANTHROPIC_WORKSPACE_ID } }
+      : {},
+  );
+  return client;
+}
+// Shared, cached clinic prompt first; the small channel rules after the cache breakpoint.
+export function systemFor(channel) {
+  return [
+    { type: "text", text: INSTRUCTIONS + knowledge, cache_control: { type: "ephemeral" } },
+    { type: "text", text: CHANNEL_RULES[channel] },
+  ];
+}
+export { MODEL, cleanMessages, readBody };
 
 const hits = new Map();
 function rateLimited(ip) {
@@ -112,19 +138,11 @@ async function handleChat(req, res) {
 
   let sentText = false;
   try {
-    // Reads ANTHROPIC_API_KEY. A key not scoped to a workspace also needs ANTHROPIC_WORKSPACE_ID.
-    client ??= new Anthropic(
-      process.env.ANTHROPIC_WORKSPACE_ID
-        ? { defaultHeaders: { "anthropic-workspace-id": process.env.ANTHROPIC_WORKSPACE_ID } }
-        : {},
-    );
-    const stream = client.messages.stream({
+    const stream = anthropic().messages.stream({
       model: MODEL,
       max_tokens: 2000,
       output_config: { effort: "low" },
-      system: [
-        { type: "text", text: INSTRUCTIONS + knowledge, cache_control: { type: "ephemeral" } },
-      ],
+      system: systemFor("web"),
       messages,
     });
     req.on("close", () => stream.abort());
@@ -163,8 +181,9 @@ const server = http.createServer(async (req, res) => {
   if (req.method === "OPTIONS") { res.writeHead(204); return res.end(); }
   if (req.method === "GET" && url.pathname === "/health") {
     res.writeHead(200, { "Content-Type": "application/json" });
-    return res.end(JSON.stringify({ ok: true, model: MODEL, key: Boolean(process.env.ANTHROPIC_API_KEY) }));
+    return res.end(JSON.stringify({ ok: true, model: MODEL, key: Boolean(process.env.ANTHROPIC_API_KEY), whatsapp: whatsappEnabled() }));
   }
+  if (url.pathname === "/whatsapp/webhook") return handleWhatsApp(req, res, url);
   if (req.method === "POST" && url.pathname === "/chat") {
     if (origin && !ALLOWED_ORIGINS.includes(origin)) { res.writeHead(403); return res.end(); }
     return handleChat(req, res);
@@ -177,12 +196,7 @@ server.listen(PORT, async () => {
   console.log(`chat server on :${PORT}, model ${MODEL}, knowledge ${knowledge.length} chars`);
   if (!process.env.ANTHROPIC_API_KEY) return;
   try {
-    client ??= new Anthropic(
-      process.env.ANTHROPIC_WORKSPACE_ID
-        ? { defaultHeaders: { "anthropic-workspace-id": process.env.ANTHROPIC_WORKSPACE_ID } }
-        : {},
-    );
-    const { input_tokens } = await client.messages.countTokens({
+    const { input_tokens } = await anthropic().messages.countTokens({
       model: MODEL,
       system: INSTRUCTIONS + knowledge,
       messages: [{ role: "user", content: "hi" }],

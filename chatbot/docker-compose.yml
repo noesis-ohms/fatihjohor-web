@@ -21,6 +21,11 @@ services:
       - CHAT_MODEL=${CHAT_MODEL:-claude-haiku-5-5}
       - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-https://klinikalfatihjohor.com,https://www.klinikalfatihjohor.com}
       - NODE_ENV=production
+      # WhatsApp Business Platform (Cloud API); leave empty to keep WhatsApp off
+      - WA_TOKEN=${WA_TOKEN:-}
+      - WA_PHONE_NUMBER_ID=${WA_PHONE_NUMBER_ID:-}
+      - WA_VERIFY_TOKEN=${WA_VERIFY_TOKEN:-}
+      - WA_APP_SECRET=${WA_APP_SECRET:-}
     labels:
       - traefik.enable=true
       - traefik.http.routers.chatbot.rule=Host(`srv2175084.hstgr.cloud`)
