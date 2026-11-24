@@ -24,7 +24,9 @@
   .afc-x{border:0;background:transparent;color:#fff;font-size:26px;line-height:1;cursor:pointer;padding:2px 6px}
   .afc-log{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:#f6faff}
   .afc-m{max-width:85%;padding:9px 12px;border-radius:14px;white-space:pre-wrap;word-wrap:break-word}
-  .afc-m a{color:inherit;text-decoration:underline;word-break:break-all}
+  .afc-m a{color:inherit;text-decoration:underline}
+  .afc-bot .afc-link{display:inline-block;margin:3px 0;padding:4px 10px;border-radius:999px;background:#eaf2ff;color:#0000ff;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap}
+  .afc-bot .afc-link:hover{background:#dbe7ff}
   .afc-bot{align-self:flex-start;background:#fff;border:1px solid #dbe7f5;color:#071d52}
   .afc-me{align-self:flex-end;background:#0000ff;color:#fff}
   .afc-form{display:flex;gap:8px;padding:10px;border-top:1px solid #dbe7f5;background:#fff}
@@ -60,20 +62,58 @@
   const input = panel.querySelector(".afc-in");
   const sendBtn = panel.querySelector(".afc-send");
 
+  // Chat history is kept on this device for 24 hours from the first message, then wiped.
+  const TTL_MS = 24 * 60 * 60 * 1000;
   let history = [];
-  try { history = JSON.parse(sessionStorage.getItem(STORE) || "[]"); } catch { history = []; }
-  const save = () => { try { sessionStorage.setItem(STORE, JSON.stringify(history.slice(-20))); } catch {} };
+  let startedAt = Date.now();
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORE) || "null");
+    if (saved && Array.isArray(saved.messages) && Date.now() - saved.startedAt < TTL_MS) {
+      history = saved.messages;
+      startedAt = saved.startedAt;
+    } else {
+      localStorage.removeItem(STORE);
+    }
+    sessionStorage.removeItem(STORE); // old format
+  } catch { history = []; }
+  const save = () => {
+    try {
+      if (!history.length) startedAt = Date.now();
+      localStorage.setItem(STORE, JSON.stringify({ startedAt, messages: history.slice(-20) }));
+    } catch {}
+  };
 
+  // Show links as short labels instead of long raw URLs.
+  const WA = { "60126009137": "WhatsApp Teratai (Skudai)", "60175204224": "WhatsApp Tropika (JB)" };
+  const PAGE_NAMES = { "": "Laman utama", "booking": "Tempah temujanji", "cawangan-klinik": "Lokasi cawangan", "panel-klinik": "Senarai panel", "doktor": "Doktor kami", "servis": "Semua servis" };
+  const linkLabel = (url) => {
+    try {
+      const u = new URL(url);
+      if (u.hostname === "wa.me") return WA[u.pathname.slice(1)] || "WhatsApp";
+      if (u.hostname.endsWith("klinikalfatihjohor.com")) {
+        const slug = u.pathname.replace(/^\/|\.html$|\/$/g, "");
+        const last = slug.split("/").pop();
+        const name = PAGE_NAMES[slug] ?? last.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+        return "Lihat: " + name;
+      }
+      return u.hostname;
+    } catch { return url; }
+  };
   const linkify = (el, text) => {
     el.textContent = "";
-    const re = /(https?:\/\/[^\s)]+)/g;
+    const re = /https?:\/\/[^\s)\]>"']+/g;
     let last = 0, m;
     while ((m = re.exec(text))) {
+      const url = m[0].replace(/[.,;:!?]+$/, ""); // drop sentence punctuation after a link
       el.append(text.slice(last, m.index));
       const a = document.createElement("a");
-      a.href = m[1]; a.textContent = m[1]; a.target = "_blank"; a.rel = "noopener";
+      a.href = url;
+      a.textContent = linkLabel(url) + " ›";
+      a.className = "afc-link";
+      if (!url.includes("klinikalfatihjohor.com")) { a.target = "_blank"; a.rel = "noopener"; }
+      else a.addEventListener("click", () => { try { sessionStorage.setItem(STORE + "-open", "1"); } catch {} });
       el.append(a);
-      last = m.index + m[1].length;
+      last = m.index + m[0].length; // also swallow punctuation right after the link
     }
     el.append(text.slice(last));
   };
@@ -102,6 +142,13 @@
   const open = () => { panel.classList.add("open"); btn.style.display = "none"; render(); input.focus(); };
   const close = () => { panel.classList.remove("open"); btn.style.display = ""; btn.focus(); };
   btn.addEventListener("click", open);
+  // Visitor tapped a clinic page link in the chat: keep the chat open on the new page.
+  try {
+    if (sessionStorage.getItem(STORE + "-open")) {
+      sessionStorage.removeItem(STORE + "-open");
+      panel.classList.add("open"); btn.style.display = "none"; render();
+    }
+  } catch {}
   panel.querySelector(".afc-x").addEventListener("click", close);
   panel.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   input.addEventListener("keydown", (e) => {
