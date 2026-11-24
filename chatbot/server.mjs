@@ -171,4 +171,22 @@ const server = http.createServer(async (req, res) => {
   res.end();
 });
 
-server.listen(PORT, () => console.log(`chat server on :${PORT}, model ${MODEL}, knowledge ${knowledge.length} chars`));
+server.listen(PORT, async () => {
+  console.log(`chat server on :${PORT}, model ${MODEL}, knowledge ${knowledge.length} chars`);
+  if (!process.env.ANTHROPIC_API_KEY) return;
+  try {
+    client ??= new Anthropic(
+      process.env.ANTHROPIC_WORKSPACE_ID
+        ? { defaultHeaders: { "anthropic-workspace-id": process.env.ANTHROPIC_WORKSPACE_ID } }
+        : {},
+    );
+    const { input_tokens } = await client.messages.countTokens({
+      model: MODEL,
+      system: INSTRUCTIONS + knowledge,
+      messages: [{ role: "user", content: "hi" }],
+    });
+    console.log(`prompt size: ${input_tokens} tokens`);
+  } catch (err) {
+    console.error("token count failed:", err?.message || err);
+  }
+});

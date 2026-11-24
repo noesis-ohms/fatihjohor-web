@@ -7,7 +7,7 @@ const siteDir = process.argv[2] || "..";
 const outFile = process.argv[3] || "knowledge.txt";
 
 // Internal / duplicate pages that add nothing for visitors.
-const SKIP = new Set(["admin.html", "appointment-review.html", "og-home.html"]);
+const SKIP = new Set(["admin.html", "appointment-review.html", "og-home.html", "join-us.html"]);
 
 const entities = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " " };
 const decode = (s) =>
@@ -45,18 +45,50 @@ files.sort((a, b) => (a === "index.html" ? -1 : b === "index.html" ? 1 : a.local
 // Lines repeated across pages (menus, footers) are kept only the first time.
 const seen = new Set();
 let out = "";
+const panelNames = [];
+let panelTemplateDone = false;
 for (const file of files) {
   if (SKIP.has(file)) continue;
+  // Health articles are general reading, not clinic facts.
+  if (file.startsWith("blog-kesihatan/")) continue;
+  // Panel pages share one template: keep the first in full, then just list the names.
+  if (file.startsWith("panel/")) {
+    if (panelTemplateDone) {
+      const { title } = pageText(fs.readFileSync(path.join(siteDir, file), "utf8"));
+      panelNames.push(`${title.split("|")[0].replace(/Panel Clinic.*/i, "").trim()} (https://klinikalfatihjohor.com/${file})`);
+      continue;
+    }
+    panelTemplateDone = true;
+  }
   const { title, lines } = pageText(fs.readFileSync(path.join(siteDir, file), "utf8"));
-  const fresh = lines.filter((l) => {
-    if (seen.has(l)) return false;
-    seen.add(l);
-    return true;
-  });
+  // Drop sentences already seen on earlier pages (shared FAQs, footers), and
+  // self-assessment questionnaire items, which are not clinic facts.
+  const fresh = lines
+    .filter((l) => !/^\d{1,2} (Saya|Tidak langsung|Sedikit|Agak kerap|Sangat kerap)/.test(l))
+    .map((l) =>
+      l
+        .split(/(?<=[.!?])\s+/)
+        .filter((sentence) => {
+          if (sentence.length < 20) return true;
+          if (seen.has(sentence)) return false;
+          seen.add(sentence);
+          return true;
+        })
+        .join(" "),
+    )
+    .filter((l) => {
+      if (!l || seen.has("line:" + l)) return false;
+      seen.add("line:" + l);
+      return true;
+    });
   if (!fresh.length) continue;
   out += `\n\n=== PAGE: https://klinikalfatihjohor.com/${file === "index.html" ? "" : file} | ${title} ===\n`;
   out += fresh.join("\n");
 }
 
+if (panelNames.length) {
+  out += "\n\n=== OTHER PANELS LISTED IN THE CLINIC PANEL DIRECTORY (same rules as the panel page above: listed, eligibility must be checked) ===\n";
+  out += panelNames.join("\n");
+}
 fs.writeFileSync(outFile, out.trim() + "\n");
 console.log(`Wrote ${outFile}: ${files.length} pages, ${out.length} chars`);
