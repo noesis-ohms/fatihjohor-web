@@ -10,7 +10,7 @@ const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS ||
   "https://klinikalfatihjohor.com,https://www.klinikalfatihjohor.com")
   .split(",").map((s) => s.trim()).filter(Boolean);
 
-const MAX_TURNS = 20;            // messages kept from the conversation
+const MAX_TURNS = 12;            // messages kept from the conversation
 const MAX_CHARS = 1500;          // per visitor message
 const RATE_LIMIT = 30;           // messages per IP ...
 const RATE_WINDOW_MS = 60 * 60 * 1000; // ... per hour

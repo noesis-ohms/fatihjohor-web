@@ -7,7 +7,9 @@ const siteDir = process.argv[2] || "..";
 const outFile = process.argv[3] || "knowledge.txt";
 
 // Internal / duplicate pages that add nothing for visitors.
-const SKIP = new Set(["admin.html", "appointment-review.html", "og-home.html", "join-us.html"]);
+const SKIP = new Set(["admin.html", "appointment-review.html", "og-home.html", "join-us.html",
+  // Pages netlify.toml redirects away (content lives on mens-health / servis).
+  "hair-loss.html", "mental-health.html"]);
 
 const entities = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " " };
 const decode = (s) =>
