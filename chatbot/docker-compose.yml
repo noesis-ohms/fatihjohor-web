@@ -1,14 +1,25 @@
 # Deployed on the Hostinger VPS (Docker Manager). Traefik there handles HTTPS.
+# On every start/restart the container downloads the latest code from GitHub
+# (branch in CODE_BRANCH), so "Restart" in hPanel = update.
 services:
   chatbot:
-    build:
-      context: https://github.com/noesis-ohms/fatihjohor-web.git#main
-      dockerfile: chatbot/Dockerfile
+    image: node:22-alpine
     restart: unless-stopped
+    command:
+      - sh
+      - -c
+      - >-
+        D=$$(mktemp -d) && cd $$D &&
+        wget -qO- https://codeload.github.com/noesis-ohms/fatihjohor-web/tar.gz/refs/heads/$${CODE_BRANCH} | tar xz --strip-components=1 &&
+        cd chatbot && npm ci --omit=dev --no-audit --no-fund &&
+        node build-knowledge.mjs .. knowledge.txt &&
+        exec node server.mjs
     environment:
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - CODE_BRANCH=${CODE_BRANCH:-main}
       - CHAT_MODEL=${CHAT_MODEL:-claude-opus-5-5}
       - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-https://klinikalfatihjohor.com,https://www.klinikalfatihjohor.com}
+      - NODE_ENV=production
     labels:
       - traefik.enable=true
       - traefik.http.routers.chatbot.rule=Host(`srv2175084.hstgr.cloud`)
