@@ -185,7 +185,12 @@
           const line = buf.slice(0, i); buf = buf.slice(i + 2);
           if (!line.startsWith("data: ")) continue;
           const msg = JSON.parse(line.slice(6));
-          if (msg.text) { reply += msg.text; linkify(out, reply); log.scrollTop = log.scrollHeight; }
+          if (msg.text) {
+            reply += msg.text;
+            // Only answer a salam that was actually given.
+            if (!/salam/i.test(text)) reply = reply.replace(/^\s*Wa'?alaikum(us)?salam[^A-Za-z]*/i, "");
+            linkify(out, reply); log.scrollTop = log.scrollHeight;
+          }
         }
       }
     } catch {
