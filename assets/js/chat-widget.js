@@ -34,7 +34,31 @@
   .afc-send{border:0;border-radius:12px;padding:0 16px;background:#0000ff;color:#fff;font-weight:800;font-family:inherit;cursor:pointer}
   .afc-send:disabled{opacity:.5}
   .afc-note{font-size:11px;color:#62728d;text-align:center;padding:0 10px 8px;background:#fff}
-  @media (max-width:760px){.afc-btn{bottom:86px;right:12px}.afc-panel{right:12px;bottom:12px}}
+  .afc-chips{display:flex;gap:8px;overflow-x:auto;padding:8px 12px 2px;background:#fff;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .afc-chips::-webkit-scrollbar{display:none}
+  .afc-chip{flex:none;border:1px solid #c9dafc;background:#f3f7ff;color:#0b3b89;border-radius:999px;padding:8px 13px;font:700 13px Inter,ui-sans-serif,system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+  .afc-send{display:flex;align-items:center;justify-content:center;min-width:46px}
+  .afc-send svg{width:20px;height:20px;fill:currentColor}
+  .afc-typing{display:inline-flex;gap:4px;align-items:center;height:18px}
+  .afc-typing i{width:6px;height:6px;border-radius:50%;background:#8aa4c8;animation:afc-b 1s infinite}
+  .afc-typing i:nth-child(2){animation-delay:.15s}.afc-typing i:nth-child(3){animation-delay:.3s}
+  @keyframes afc-b{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+  html.afc-lock,html.afc-lock body{overflow:hidden!important}
+  @media (max-width:760px){
+    /* Launcher: compact round avatar above the bottom bar */
+    .afc-btn{right:12px;bottom:calc(84px + env(safe-area-inset-bottom));padding:4px;border-radius:50%;font-size:0;gap:0;box-shadow:0 10px 26px rgba(0,0,255,.35)}
+    .afc-btn .afc-av{width:56px;height:56px}
+    .afc-btn::after{content:"Tanya";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);background:#0000ff;color:#fff;font:800 11px/1 Inter,ui-sans-serif,system-ui,sans-serif;padding:4px 8px;border-radius:999px;border:2px solid #fff}
+    /* Panel: full screen, sized to the visible area (keyboard-aware via JS) */
+    .afc-panel{inset:0 auto auto 0;right:auto;bottom:auto;width:100vw;height:var(--afc-vh,100dvh);max-height:none;border-radius:0;border:0;box-shadow:none}
+    .afc-head{padding:calc(10px + env(safe-area-inset-top)) 8px 10px 14px}
+    .afc-x{width:44px;height:44px;font-size:30px}
+    .afc-log{padding:12px 10px}
+    .afc-m{font-size:15.5px}
+    .afc-row{max-width:94%}
+    .afc-form{padding:8px 10px}
+    .afc-note{font-size:10.5px;padding:0 12px calc(6px + env(safe-area-inset-bottom))}
+  }
   `;
   const style = document.createElement("style");
   style.textContent = css;
@@ -53,7 +77,8 @@
   panel.innerHTML = `
     <div class="afc-head"><div class="afc-who"><img src="${AVATAR}" alt="" class="afc-av"><div><b>Tanya Kak Liza</b><small>Pembantu AI Klinik Al-Fatih</small></div></div><button class="afc-x" type="button" aria-label="Tutup">×</button></div>
     <div class="afc-log" aria-live="polite"></div>
-    <form class="afc-form"><textarea class="afc-in" rows="1" placeholder="Taip soalan anda…" aria-label="Mesej"></textarea><button class="afc-send" type="submit">Hantar</button></form>
+    <div class="afc-chips"></div>
+    <form class="afc-form"><textarea class="afc-in" rows="1" placeholder="Taip soalan anda…" aria-label="Mesej"></textarea><button class="afc-send" type="submit" aria-label="Hantar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.4 20.4 21 12 3.4 3.6 3.4 10.2 15 12 3.4 13.8z"/></svg></button></form>
     <div class="afc-note">Kak Liza hanya pembantu maya klinik. Untuk rawatan, anda masih perlu berjumpa dengan profesional.</div>`;
 
   document.body.append(btn, panel);
@@ -133,37 +158,85 @@
     return el;
   };
 
+  const chips = panel.querySelector(".afc-chips");
+  const QUICK = ["Waktu operasi", "Tempah temujanji", "Semak panel saya", "Harga medical checkup", "Lokasi klinik"];
+  const renderChips = () => {
+    chips.textContent = "";
+    if (history.length) { chips.style.display = "none"; return; } // only before the first question
+    chips.style.display = "";
+    QUICK.forEach((q) => {
+      const c = document.createElement("button");
+      c.type = "button"; c.className = "afc-chip"; c.textContent = q;
+      c.addEventListener("click", () => { input.value = q; form.requestSubmit(); });
+      chips.appendChild(c);
+    });
+  };
   const render = () => {
     log.textContent = "";
     bubble("assistant", GREETING);
     history.forEach((m) => bubble(m.role, m.content));
+    renderChips();
   };
 
-  const open = () => { panel.classList.add("open"); btn.style.display = "none"; render(); input.focus(); };
-  const close = () => { panel.classList.remove("open"); btn.style.display = ""; btn.focus(); };
+  // Phone: fit the panel to the visible area so the keyboard never covers the input.
+  const mobile = () => window.matchMedia("(max-width:760px)").matches;
+  const vv = window.visualViewport;
+  const fit = () => {
+    if (!panel.classList.contains("open") || !mobile() || !vv) return;
+    panel.style.setProperty("--afc-vh", vv.height + "px");
+    panel.style.top = vv.offsetTop + "px";
+    log.scrollTop = log.scrollHeight;
+  };
+  if (vv) { vv.addEventListener("resize", fit); vv.addEventListener("scroll", fit); }
+
+  const grow = () => { input.style.height = "auto"; input.style.height = Math.min(input.scrollHeight, 110) + "px"; };
+  input.addEventListener("input", grow);
+
+  let pushed = false;
+  const show = () => {
+    panel.classList.add("open"); btn.style.display = "none"; render();
+    if (mobile()) {
+      document.documentElement.classList.add("afc-lock");
+      // Phone back button closes the chat instead of leaving the page.
+      try { window.history.pushState({ afc: 1 }, ""); pushed = true; } catch {}
+    }
+    fit();
+    log.scrollTop = log.scrollHeight;
+  };
+  const open = () => { show(); if (!mobile()) input.focus(); };
+  const close = (fromBack) => {
+    panel.classList.remove("open"); btn.style.display = "";
+    document.documentElement.classList.remove("afc-lock");
+    panel.style.removeProperty("--afc-vh"); panel.style.top = "";
+    if (pushed && fromBack !== true) { pushed = false; try { window.history.back(); } catch {} }
+    pushed = false;
+  };
+  window.addEventListener("popstate", () => { if (panel.classList.contains("open")) { pushed = false; close(true); } });
   btn.addEventListener("click", open);
   // Visitor tapped a clinic page link in the chat: keep the chat open on the new page.
   try {
     if (sessionStorage.getItem(STORE + "-open")) {
       sessionStorage.removeItem(STORE + "-open");
-      panel.classList.add("open"); btn.style.display = "none"; render();
+      show();
     }
   } catch {}
-  panel.querySelector(".afc-x").addEventListener("click", close);
+  panel.querySelector(".afc-x").addEventListener("click", () => close());
   panel.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
   input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); }
+    if (e.key === "Enter" && !e.shiftKey && !mobile()) { e.preventDefault(); form.requestSubmit(); }
   });
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const text = input.value.trim();
     if (!text || sendBtn.disabled) return;
-    input.value = "";
+    input.value = ""; grow();
     history.push({ role: "user", content: text });
     save();
     bubble("user", text);
-    const out = bubble("assistant", "…");
+    renderChips();
+    const out = bubble("assistant", "");
+    out.innerHTML = '<span class="afc-typing" aria-label="Kak Liza sedang menaip"><i></i><i></i><i></i></span>';
     sendBtn.disabled = true;
     let reply = "";
     try {
@@ -203,6 +276,6 @@
     history.push({ role: "assistant", content: reply });
     save();
     sendBtn.disabled = false;
-    input.focus();
+    if (!mobile()) input.focus();
   });
 })();
