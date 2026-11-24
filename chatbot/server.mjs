@@ -35,7 +35,7 @@ Rules:
 Clinic information, taken from the clinic website:
 `;
 
-const client = new Anthropic(); // reads ANTHROPIC_API_KEY
+let client = null; // created on first chat, once ANTHROPIC_API_KEY is set
 
 const hits = new Map();
 function rateLimited(ip) {
@@ -109,6 +109,7 @@ async function handleChat(req, res) {
 
   let sentText = false;
   try {
+    client ??= new Anthropic(); // reads ANTHROPIC_API_KEY
     const stream = client.beta.messages.stream({
       model: MODEL,
       max_tokens: 2000,
@@ -135,6 +136,7 @@ async function handleChat(req, res) {
     if (err instanceof Anthropic.APIUserAbortError) return;
     if (err instanceof Anthropic.AuthenticationError) console.error("chat error: API key missing or invalid");
     else if (err instanceof Anthropic.RateLimitError) console.error("chat error: Anthropic rate limit");
+    else if (err instanceof Anthropic.AnthropicError && !(err instanceof Anthropic.APIError)) console.error("chat error:", err.message);
     else if (err instanceof Anthropic.APIError) console.error(`chat error: API ${err.status} ${err.message}`);
     else console.error("chat error:", err?.message || err);
     if (!sentText) send({ text: FALLBACK_TEXT });
