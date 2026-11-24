@@ -5,7 +5,7 @@
 
   const API = "https://srv2175084.hstgr.cloud/chat";
   const STORE = "alfatih-chat-v1";
-  const AVATAR = "/assets/img/kak-liza.svg";
+  const AVATAR = "/assets/img/kak-liza.webp";
   const GREETING =
     "Assalamualaikum! Saya Kak Liza, pembantu AI Klinik Al-Fatih. Tanya Kak Liza tentang servis, waktu operasi, panel atau temujanji ya.\n\nHi! I'm Kak Liza. Ask me anything about our clinic.";
 
