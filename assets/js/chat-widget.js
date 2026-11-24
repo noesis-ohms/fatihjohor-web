@@ -110,7 +110,7 @@
 
   // Show links as short labels instead of long raw URLs.
   const WA = { "60126009137": "WhatsApp Teratai (Skudai)", "60175204224": "WhatsApp Tropika (JB)" };
-  const PAGE_NAMES = { "": "Laman utama", "booking": "Tempah temujanji", "cawangan-klinik": "Lokasi cawangan", "panel-klinik": "Senarai panel", "doktor": "Doktor kami", "servis": "Semua servis" };
+  const PAGE_NAMES = { "": "Laman utama", "booking": "Tempah temujanji", "cawangan-klinik": "Lokasi cawangan", "panel-klinik": "Senarai panel", "doktor": "Doktor kami", "servis": "Semua servis", "klinik-skudai-taman-teratai": "Cawangan Teratai (Skudai)", "klinik-setia-tropika-kempas": "Cawangan Tropika (JB)", "medical-checkup": "Medical checkup", "std-clinic": "Klinik STD" };
   const linkLabel = (url) => {
     try {
       const u = new URL(url);
