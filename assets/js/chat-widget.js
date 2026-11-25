@@ -7,7 +7,7 @@
   const STORE = "alfatih-chat-v1";
   const AVATAR = "/assets/img/kak-liza.webp";
   const GREETING =
-    "Assalamualaikum! Saya Kak Liza, pembantu AI Klinik Al-Fatih. Tanya Kak Liza tentang servis, waktu operasi, panel atau temujanji ya.\n\nHi! I'm Kak Liza. Ask me anything about our clinic.";
+    "Assalamualaikum! Saya Kak Liza, pembantu AI Klinik Al-Fatih. Tanya Kak Liza tentang servis, waktu operasi, panel atau temujanji ya.\n\nHi! Ask me in your language:\nEnglish · 中文 · தமிழ் · বাংলা · नेपाली · မြန်မာ · Indonesia";
 
   const css = `
   .afc-btn{position:fixed;right:18px;bottom:18px;z-index:70;display:flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:13px 17px;background:linear-gradient(135deg,#0759e8,#0000ff);color:#fff;font:800 15px/1 Inter,ui-sans-serif,system-ui,sans-serif;box-shadow:0 14px 34px rgba(0,0,255,.28);cursor:pointer}
