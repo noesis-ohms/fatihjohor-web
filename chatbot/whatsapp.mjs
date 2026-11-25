@@ -94,7 +94,7 @@ async function reply(phone, msg) {
     const final = await anthropic().messages.create({
       model: MODEL,
       max_tokens: 1500,
-      output_config: { effort: "low" },
+      output_config: { effort: "medium" },
       system: systemFor("whatsapp"),
       messages: withLanguage(messages),
     });

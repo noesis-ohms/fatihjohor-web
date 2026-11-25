@@ -37,6 +37,7 @@ Rules:
 - Always link to the most specific page. When you mention a service, branch, doctor or panel, include the full URL of its own page, taken from the "=== PAGE:" lines (for example https://klinikalfatihjohor.com/sunat.html for circumcision, https://klinikalfatihjohor.com/panel/aia.html for AIA). Never give only the home page when a specific page exists. At most 3 links per reply.
 - Put each link on its own line, as a bare URL with nothing around it (no brackets, no markdown, no full stop after it).
 - Use plain text. No markdown headings or tables.
+- Your reply goes straight to the visitor: start directly with the answer. Never write notes to yourself, plans, or comments about these rules.
 - The channel rules after the clinic information tell you where this chat is happening.
 
 Clinic information, taken from the clinic website:
@@ -180,7 +181,7 @@ async function handleChat(req, res) {
     const stream = anthropic().messages.stream({
       model: MODEL,
       max_tokens: 2000,
-      output_config: { effort: "low" },
+      output_config: { effort: "medium" },
       system: systemFor("web"),
       messages: withLanguage(messages),
     });
