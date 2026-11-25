@@ -136,6 +136,7 @@
   };
   const linkify = (el, text) => {
     el.textContent = "";
+    text = text.replace(/\*\*([^*\n]+)\*\*/g, "$1"); // no markdown bold in the bubble
     const re = /https?:\/\/[^\s)\]>"']+/g;
     let last = 0, m;
     while ((m = re.exec(text))) {
