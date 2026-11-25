@@ -3,7 +3,7 @@
 //   POST /whatsapp/webhook  incoming messages -> Kak Liza reply via the Graph API
 // Needs: WA_TOKEN, WA_PHONE_NUMBER_ID, WA_VERIFY_TOKEN, WA_APP_SECRET.
 import crypto from "node:crypto";
-import { anthropic, systemFor, MODEL, cleanMessages, readBody } from "./server.mjs";
+import { anthropic, systemFor, withLanguage, MODEL, cleanMessages, readBody } from "./server.mjs";
 
 const GRAPH = process.env.WA_GRAPH_BASE || `https://graph.facebook.com/${process.env.WA_GRAPH_VERSION || "v23.0"}`;
 const HISTORY_MS = 24 * 60 * 60 * 1000; // same as the website: forget a chat after 24h
@@ -96,7 +96,7 @@ async function reply(phone, msg) {
       max_tokens: 1500,
       output_config: { effort: "low" },
       system: systemFor("whatsapp"),
-      messages,
+      messages: withLanguage(messages),
     });
     text = final.content.filter((b) => b.type === "text").map((b) => b.text).join("").trim();
     const u = final.usage;

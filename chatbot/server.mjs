@@ -66,6 +66,43 @@ export function systemFor(channel) {
     { type: "text", text: CHANNEL_RULES[channel] },
   ];
 }
+// Haiku tends to drift into Malay (the clinic text is Malay), so detect the visitor's language
+// and add a short reply-language instruction after their last message. This sits after the
+// cached prefix, so it does not affect caching.
+const SCRIPTS = [
+  [/[\u0B80-\u0BFF]/, "Tamil (தமிழ் script)"],
+  [/[\u0980-\u09FF]/, "Bengali / Bangla (বাংলা script)"],
+  [/[\u1000-\u109F]/, "Burmese / Myanmar (မြန်မာ script)"],
+  [/[\u0900-\u097F]/, "Nepali (Devanagari script)"],
+  [/[\u4E00-\u9FFF]/, "Simplified Chinese (简体中文)"],
+];
+const WORDS = {
+  English: /\b(what|when|where|how|the|is|are|do|does|can|you|your|my|price|cost|open|clinic hours|please|thanks|i|want|need)\b/gi,
+  Malay: /\b(saya|nak|apa|berapa|boleh|ada|tak|bila|mana|harga|buka|untuk|dengan|yang|ke|di|tu|ni|ke|tolong|terima kasih|klinik)\b/gi,
+  Indonesian: /\b(bisa|apakah|berapa|saya|mau|gimana|bagaimana|kapan|dokter|tidak|nggak|enggak|biaya|ingin|terima kasih)\b/gi,
+  "Nepali (romanised, Latin letters)": /\b(garna|garnu|kati|cha|chha|ho|hunchha|lagcha|lagchha|ma|malai|tapai|kasari|kahile|paisa|chahiyo|parcha|namaste|dhanyabad)\b/gi,
+};
+export function replyLanguage(text) {
+  for (const [re, name] of SCRIPTS) if (re.test(text)) return name;
+  let best = null, bestN = 0;
+  for (const [name, re] of Object.entries(WORDS)) {
+    const n = (text.match(re) || []).length;
+    if (n > bestN) { best = name; bestN = n; }
+  }
+  // Indonesian shares words with Malay: only pick it when it clearly wins.
+  if (best === "Indonesian" && (text.match(WORDS.Malay) || []).length >= bestN) best = "Malay";
+  return best;
+}
+export function withLanguage(messages) {
+  const last = messages[messages.length - 1]?.content || "";
+  const lang = replyLanguage(last);
+  if (!lang) return messages;
+  return [...messages, {
+    role: "system",
+    content: `Reply language: the visitor's last message is in ${lang}. Write your whole reply in ${lang}. Keep clinic names, addresses, prices, phone numbers and links unchanged.`,
+  }];
+}
+
 export { MODEL, cleanMessages, readBody };
 
 const hits = new Map();
@@ -145,7 +182,7 @@ async function handleChat(req, res) {
       max_tokens: 2000,
       output_config: { effort: "low" },
       system: systemFor("web"),
-      messages,
+      messages: withLanguage(messages),
     });
     req.on("close", () => stream.abort());
     for await (const event of stream) {
