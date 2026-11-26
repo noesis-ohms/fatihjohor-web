@@ -645,3 +645,15 @@ force = false
   [redirects.conditions]
 
   [redirects.headers]
+# Server code for the chat assistant (runs on the VPS) and tool settings: not part of the website.
+[[redirects]]
+from = "/chatbot/*"
+to = "/404.html"
+status = 404
+force = true
+
+[[redirects]]
+from = "/.claude/*"
+to = "/404.html"
+status = 404
+force = true
